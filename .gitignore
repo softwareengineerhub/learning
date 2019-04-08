@@ -1,0 +1,9 @@
+/java-core-app/target
+/java-core-app/.idea
+/java-core-app/java-core-app.iml
+/mvn-client/target
+/mvn-client/mvn-client.iml
+/myclassloader/.idea
+/myclassloader/myclassloader.iml
+/mvn-client/.idea
+/myclassloader/target
