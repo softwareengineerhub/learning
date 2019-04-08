@@ -1,7 +1,7 @@
 package com.app.ch03.myarraylist;
 
 import com.app.ch03.MyList;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.ConcurrentModificationException;
 
@@ -11,8 +11,38 @@ public class MyArrayListTest {
 
     private MyList myList = new MyArrayList();
 
+    @BeforeClass
+    public static void setUp(){
+
+    }
+
+    @Before
+    public void init(){
+        myList.add("A");
+        myList.add("B");
+        myList.add("C");
+        myList.add("D");
+        myList.add("E");
+    }
+
+
     @Test(expected = ConcurrentModificationException.class)
+    //@Test
     public void concurrentModification(){
+        for(Object item: myList){
+            if("C".equals(item)){
+                myList.add("QQQQ");
+            }
+        }
+    }
+
+    @After
+    public void destroy(){
+
+    }
+
+    @AfterClass
+    public static void tearDown(){
 
     }
 
@@ -37,11 +67,11 @@ public class MyArrayListTest {
 
     @Test
     public void addTest(){
-        myList.add("A");
-        myList.add("B");
-        myList.add("C");
+        //myList.add("A");
+        //myList.add("B");
+        //myList.add("C");
         assertEquals("A", myList.get(0));
-        assertTrue(myList.size()==3);
+        assertTrue(myList.size()==5);
     }
 
     @Test
