@@ -1,7 +1,7 @@
 package com.app.ch03.myarraylist;
 
-import java.nio.charset.CoderMalfunctionError;
-import java.util.Arrays;
+import com.app.ch03.MyList;
+
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 

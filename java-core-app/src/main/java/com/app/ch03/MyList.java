@@ -1,4 +1,4 @@
-package com.app.ch03.myarraylist;
+package com.app.ch03;
 
 public interface MyList extends Iterable {
 
