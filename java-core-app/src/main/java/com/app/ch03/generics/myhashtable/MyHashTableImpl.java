@@ -1,9 +1,9 @@
-package com.app.ch03.myhashtable;
+package com.app.ch03.generics.myhashtable;
 
 import java.util.LinkedList;
 
-public class MyHashTableImpl implements MyHashTable {
-    private LinkedList<Entry>[] backets;
+public class MyHashTableImpl<K,V> implements MyHashTable<K,V> {
+    private LinkedList<Entry<K,V>>[] backets;
     private int capacity;
     private int n;
 
@@ -32,7 +32,7 @@ public class MyHashTableImpl implements MyHashTable {
     @Override
     public Object put(Object key, Object value) {
         int index = Math.abs(key.hashCode()) % backets.length;
-        LinkedList<Entry> backet = backets[index];
+        LinkedList<Entry<K,V>> backet = backets[index];
         for(Entry entry: backet){
             if(entry.key.equals(key)){
                 Object oldValue = entry.value;
@@ -47,10 +47,10 @@ public class MyHashTableImpl implements MyHashTable {
     }
 
     @Override
-    public Object get(Object key) {
+    public V get(K key) {
         int index = Math.abs(key.hashCode()) % backets.length;
-        LinkedList<Entry> backet = backets[index];
-        for(Entry entry: backet){
+        LinkedList<Entry<K,V>> backet = backets[index];
+        for(Entry<K,V> entry: backet){
             if(entry.key.equals(key)){
                 return entry.value;
             }
@@ -61,8 +61,8 @@ public class MyHashTableImpl implements MyHashTable {
     @Override
     public void remove(Object key) {
         int index = Math.abs(key.hashCode()) % backets.length;
-        LinkedList<Entry> backet = backets[index];
-        for(Entry entry: backet){
+        LinkedList<Entry<K,V>> backet = backets[index];
+        for(Entry<K,V> entry: backet){
             if(entry.key.equals(key)){
                 backet.remove(entry);
                 n--;
@@ -71,11 +71,11 @@ public class MyHashTableImpl implements MyHashTable {
         }
     }
 
-    public class Entry{
-        private Object key;
-        private Object value;
+    public class Entry<K,V>{
+        private K key;
+        private V value;
 
-        public Entry(Object key, Object value) {
+        public Entry(K key, V value) {
             this.key = key;
             this.value = value;
         }

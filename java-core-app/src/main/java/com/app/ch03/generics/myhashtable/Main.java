@@ -1,4 +1,4 @@
-package com.app.ch03.myhashtable;
+package com.app.ch03.generics.myhashtable;
 
 public class Main {
 
