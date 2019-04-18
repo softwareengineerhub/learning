@@ -8,6 +8,10 @@ public class MyCup  implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public MyCup(int t) {
+        System.out.println("@@@@@@public MyCup()");
+    }
+
     public String getName() {
         return name;
     }

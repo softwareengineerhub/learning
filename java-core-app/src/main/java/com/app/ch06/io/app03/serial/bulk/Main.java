@@ -23,7 +23,7 @@ public class Main {
     private static List<MyCup> init(int n){
         List<MyCup> list = new ArrayList<>();
         for(int i=0;i<n;i++){
-            MyCup myCup = new MyCup();
+            MyCup myCup = new MyCup(i);
             myCup.setName("Name"+i);
             myCup.setAge(i);
             list.add(myCup);
