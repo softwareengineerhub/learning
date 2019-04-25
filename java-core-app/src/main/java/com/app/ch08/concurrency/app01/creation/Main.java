@@ -14,6 +14,6 @@ public class Main {
         myThread.join();
 
         //myThread2.start();
-        System.out.println("Main next line");
+        System.out.println("MainFixedThreadPool next line");
     }
 }
