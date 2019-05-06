@@ -12,6 +12,8 @@ public class Main {
 
             public void run(){
                 for(int i=0;i<10;i++) {
+                    try {
+                        Thread.sleep(10000);
                     AppUser appUser = new AppUser();
                     appUser.setAge(counter);
                     appUser.setName("Name" + counter);
@@ -19,8 +21,8 @@ public class Main {
                     queue.put(appUser);
                     System.out.println("After put: " + appUser);
                     counter++;
-                    try {
-                        Thread.sleep(500);
+
+
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -36,7 +38,7 @@ public class Main {
             public void run(){
                 for(;;) {
                     try {
-                        Thread.sleep(6000);
+                        //Thread.sleep(6000);
                         AppUser appUser = queue.take();
                         System.out.println("\tConsumed: " + appUser);
 
