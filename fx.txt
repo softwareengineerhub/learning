@@ -1,3 +1,17 @@
+Пример из хабра
+https://habr.com/ru/post/120457/
+https://www.youtube.com/watch?v=IHhA8G-0C9M
+
+
+JPRO - java in browser
+https://www.youtube.com/watch?v=xvEhp-1kyWg
+https://gluonhq.com/products/scene-builder/
+
+
+
+
+
+
 <build>
         <plugins>
             <plugin>
