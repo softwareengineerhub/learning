@@ -18,7 +18,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 public class ChatApplication extends Application {
-    private Socket socket;
+    private ClientThread clientThread;
 
     public static void main(String[] args) {
         launch(args);
@@ -51,9 +51,13 @@ public class ChatApplication extends Application {
                 try {
                     String host = hostTextField.getText();
                     String port = portTextField.getText();
-                    socket = new Socket(host, Integer.parseInt(port));
+                    Socket socket = new Socket(host, Integer.parseInt(port));
+
 
                     TextArea textArea = new TextArea();
+                    clientThread = new ClientThread(socket, textArea);
+                    clientThread.start();
+
                     TextField userInputField = new TextField();
                     Button userSendButton = new Button("SEND");
                     userSendButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -61,7 +65,7 @@ public class ChatApplication extends Application {
                         public void handle(MouseEvent event) {
                             String text = userInputField.getText();
                             try {
-                                OutputStream out = socket.getOutputStream();
+                                OutputStream out = clientThread.getSocket().getOutputStream();
                                 out.write(text.getBytes());
                                 out.flush();
                                 System.out.println("Message was sent");
