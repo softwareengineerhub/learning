@@ -7,3 +7,6 @@
 /myclassloader/myclassloader.iml
 /mvn-client/.idea
 /myclassloader/target
+/tcp-server-app/.idea
+/tcp-server-app/target
+/tcp-server-app/tcp-server-app.iml
