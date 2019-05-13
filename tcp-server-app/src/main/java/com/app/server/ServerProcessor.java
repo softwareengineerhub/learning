@@ -9,6 +9,7 @@ import java.net.Socket;
 public class ServerProcessor extends Thread {
     private ServerSocket serverSocket;
     private boolean needToRun = true;
+    private ClientsProcessor clientsProcessor = new ClientsProcessor();
 
     public ServerProcessor(int port) {
         try {
@@ -23,9 +24,8 @@ public class ServerProcessor extends Thread {
         while(needToRun){
             try {
                 Socket client = serverSocket.accept();
-                String clientMessage = readClientMessage(client);
-                System.out.println(clientMessage);
-                writeMessageToClient(client, "Response from server: "+clientMessage);
+                ClientThread clientThread = new ClientThread(client, clientsProcessor);
+                clientsProcessor.addClient(clientThread);
             } catch (Exception e) {
                 e.printStackTrace();
             }
