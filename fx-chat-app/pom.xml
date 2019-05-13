@@ -15,7 +15,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>8.7.0</version>
                 <configuration>
-                    <mainClass>com.mycompany.beautiful.taskbar.MainApp</mainClass>
+                    <mainClass>com.app.start.ChatApp</mainClass>
                 </configuration>
             </plugin>
             <plugin>
