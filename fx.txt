@@ -9,6 +9,14 @@ https://gluonhq.com/products/scene-builder/
 
 
 
+Mysql
+https://dev.mysql.com/downloads/installer/
+https://www.freemysqlhosting.net/
+
+C - create (INSERT INTO my_db.person(name, age) VALUES('Denis', 32))
+R - select (SELECT * FROM my_db.person where id>1;)
+U - update (UPDATE person SET age = 33 where id=2)
+D - delete (DeLETE from person where id=1;) 
 
 
 
