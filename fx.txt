@@ -8,7 +8,7 @@ https://www.youtube.com/watch?v=xvEhp-1kyWg
 https://gluonhq.com/products/scene-builder/
 
 
-
+-------------------------------------------------------------------------
 Mysql
 https://dev.mysql.com/downloads/installer/
 https://www.freemysqlhosting.net/
@@ -17,6 +17,15 @@ C - create (INSERT INTO my_db.person(name, age) VALUES('Denis', 32))
 R - select (SELECT * FROM my_db.person where id>1;)
 U - update (UPDATE person SET age = 33 where id=2)
 D - delete (DeLETE from person where id=1;) 
+
+ACID
+
+SELECT sum(age) FROM my_db.person GROUP BY name HAVing SUM(AGE)>21;
+
+group by, having, order by, distinct, limit
+aggregation functions: sum(), min, max, count, avg
+JOIN
+------------------------------------------------------------------------------
 
 
 
