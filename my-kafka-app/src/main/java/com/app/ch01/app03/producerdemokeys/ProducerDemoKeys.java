@@ -12,7 +12,7 @@ public class ProducerDemoKeys {
 
     private static Logger logger = LoggerFactory.getLogger(ProducerWithCallbackDemo.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Properties props = new Properties();
         props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
@@ -44,6 +44,23 @@ public class ProducerDemoKeys {
 
             }
         });
+        
+        //synchronious
+        /*producer.send(record, new Callback() {
+            public void onCompletion(RecordMetadata recordMetadata, Exception e) {
+                if (e == null) {
+                    //record was successfully sent and we can wait for metadata
+                    logger.info("Received new metadata: ]n" +
+                            "Topic:" + recordMetadata.topic() + "\n" +
+                            "Partition:" + recordMetadata.partition() + "\n" +
+                            "Offset:" + recordMetadata.offset() + "\n" +
+                            "Timestamp:" + recordMetadata.timestamp() + "\n");
+                } else {
+                    e.printStackTrace();
+                }
+
+            }
+        }).get();*/
         producer.close();
     }
 

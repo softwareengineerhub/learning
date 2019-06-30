@@ -23,18 +23,19 @@ public class ProducerDemo {
         props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
+        //key and value String
         KafkaProducer<String, String> producer = new KafkaProducer(props);
 
-        ProducerRecord<String, String> record = new ProducerRecord<String, String>("first_topic", "Hello World");
+        ProducerRecord<String, String> record = new ProducerRecord<String, String>("first_topic", "Hello World3");
 
         //send data - asynchronous
         //programm finishes before data is sent
         producer.send(record);
         producer.flush();
-        for(int i=1;i<10;i++){
+        /*for(int i=1;i<10;i++){
             producer.send(record);
             producer.flush();
-        }
+        }*/
 
         //or
         producer.close();
