@@ -9,6 +9,8 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ThreadPoolExecutor;
+
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -31,7 +33,7 @@ public class ConsumerThreads {
         CountDownLatch countDownLatch = new CountDownLatch(1);
         String bootstrapServers = "127.0.0.1:9092";
         String groupId = "my-fourth-application3";
-        String topic = "first_topic";
+        String topic = "my_topic";
         final ConsumerRunnable cr = new ConsumerRunnable(countDownLatch, bootstrapServers, groupId, topic);
         
         
@@ -43,10 +45,12 @@ public class ConsumerThreads {
             }
         });
         
-        Thread t1 = new Thread(cr);
+        Thread t1 = new Thread(cr, "t1");
         t1.start();
-        
-        
+        Thread t2 = new Thread(cr,"t2");
+        t2.start();
+        Thread t3 = new Thread(cr,"t3");
+        t3.start();
         countDownLatch.await();
     }
 
@@ -76,8 +80,9 @@ public class ConsumerThreads {
                 while (true) {
                     ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
                     for (ConsumerRecord<String, String> record : records) {
+
                         System.out.println("");
-                        System.out.println("------------------------");
+                        System.out.println("------------------------"+ Thread.currentThread().getName());
                         System.out.println("Key: " + record.key() + ", Value: " + record.value());
                         System.out.println("Partition: " + record.partition() + ", Offset:" + record.offset());
                         System.out.println("------------------------");

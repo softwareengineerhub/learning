@@ -27,3 +27,6 @@ target/
 /soap-client-1/.idea
 /soap-client-1/target
 /soap-client-1/soap-client-1.iml
+/my-kafka-app/*.iml
+/my-kafka-app/.idea
+/my-kafka-app/target

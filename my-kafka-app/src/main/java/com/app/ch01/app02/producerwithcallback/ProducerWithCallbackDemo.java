@@ -17,8 +17,9 @@ public class ProducerWithCallbackDemo {
         props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
         KafkaProducer<String, String> producer = new KafkaProducer(props);
+        //props.put(ProducerConfig.ACKS_CONFIG, "all");
 
-        ProducerRecord<String, String> record = new ProducerRecord<String, String>("first_topic", "Second producer");
+        ProducerRecord<String, String> record = new ProducerRecord<String, String>("my_topic", "123Second producerqqq");
 
         producer.send(record, new Callback() {
             public void onCompletion(RecordMetadata recordMetadata, Exception e) {

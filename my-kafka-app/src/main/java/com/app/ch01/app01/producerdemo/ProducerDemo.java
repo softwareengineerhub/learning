@@ -22,11 +22,16 @@ public class ProducerDemo {
         props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG , "127.0.0.1:9092");
         props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        //props.put(ProducerConfig.ACKS_CONFIG, "-1");
+        //props.put(ProducerConfig.ACKS_CONFIG, "0");
+        //props.put(ProducerConfig.ACKS_CONFIG, "1");
+        props.put(ProducerConfig.ACKS_CONFIG, "all");
 
         //key and value String
         KafkaProducer<String, String> producer = new KafkaProducer(props);
 
-        ProducerRecord<String, String> record = new ProducerRecord<String, String>("first_topic", "Hello World3");
+
+        ProducerRecord<String, String> record = new ProducerRecord<String, String>("my_topic", "Hello World3");
 
         //send data - asynchronous
         //programm finishes before data is sent
@@ -42,3 +47,4 @@ public class ProducerDemo {
 
     }
 }
+

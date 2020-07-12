@@ -23,7 +23,7 @@ public class ProducerDemoKeys {
 
 
         int i=0;
-        String topic = "first_topic";
+        String topic = "my_topic";
         String value = "ProducerC "+i;
         String key = "id_"+i;
 
