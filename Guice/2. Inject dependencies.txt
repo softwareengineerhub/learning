@@ -1,0 +1,10 @@
+If we want to inject bean
+
+1) it must have no-args constructor
+2) or constructor with @Inject
+
+If we have 3rd party lib with bean with no-default constructor
+
+Then we can use @Provides
+ bind(DrawShape.class).to(DrawSquare.class); - is not working
+

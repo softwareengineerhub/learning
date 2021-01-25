@@ -1,0 +1,4 @@
+if type is an interface -> we must have bindings for it;
+bind(TypeA.class).to(SomeConcreteImplOfTypeA.class);
+
+
