@@ -1,0 +1,13 @@
+Early Mockito --> no mocks for final or static methods, and for constructors
+
+Solution --> PowerMock
+
+Latest Mockito (since 3.5):
+- mocks for final methods
+- mocks for static methods
+- mocking object construction
+
+Junit5 - since 2017
+But in 2020 PowerMock - does not support in natively
+
+It's better to focus only on mockito. 
