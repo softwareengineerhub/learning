@@ -30,3 +30,4 @@ target/
 /my-kafka-app/*.iml
 /my-kafka-app/.idea
 /my-kafka-app/target
+/Guice/ch03-@Named/my-guice-app/.idea
