@@ -1,0 +1,10 @@
+-The Routing Mesh an incoming network
+-Routes incoming (ingress) network packets for a Service to proper port /container
+-The mesh spans all nodes in a swarm
+-IPVS from the Linux Kernel is used
+
+
+- The routing mesh will load balance across all nodes in the swarm
+- All overlay netwotk is used to establish a virtual IP (VIP) for services
+- Containers talk to each other via VIP
+- Docker will load balance to services by routing traffic from the VIP to an container for the service   

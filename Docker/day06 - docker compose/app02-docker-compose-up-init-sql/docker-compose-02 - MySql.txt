@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    restart: "no"
+    volumes:
+      - "./myinit/myinitA.sql:/docker-entrypoint-initdb.d/1.sql"
+      - "./myinit/myinitB.sql:/docker-entrypoint-initdb.d/2.sql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=111111
+      - MYSQL_DATABASE=mydb
+      - MYSQL_USER=myuser
+      - MYSQL_PASSWORD=111111
+        command: --max_connections=10
+    healthcheck:
+      test: ["CMD-SHELL", "mysql --user=root --password=toor --execute 'select count(1) from persons.person;' || exit 1"]
+      interval: 15s
+      timeout: 2s
+      retries: 5
+      start_period: 15s
+	  
+	  
+#################################
+в 1 строчку
+- "./myinit:/docker-entrypoint-initdb.d"	  

@@ -1,0 +1,38 @@
+1) docker run --name some-mysql-with-database -e MYSQL_ROOT_PASSWORD=1 -e MYSQL_DATABASE=person -d -p 3306:3306 mysql:5.7
+
+2) docker run --name some-mysql-with-database -e MYSQL_ROOT_PASSWORD=1 -e MYSQL_DATABASE=person -v /e/Docker/Storage/mysql -d -p 3306:3306 mysql:5.7
+
+
+3) Что бы выполнить sql скрипт можно сделать следующее:
+docker exec -i container_id image -uuser -ppassword person < data.sql	
+	
+Запустить gibush here из папки, где лежит data.sql	
+docker exec -i 7ad2c3ea93bb mysql -uroot -p1 person < data.sql
+
+
+4) Что бы выполнить sql скрипт можно сделать следующее:
+docker-compose up
+
+version: "3.7"
+
+services:
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    restart: "no"
+    volumes:
+      - "./sql/A.sql:/docker-entrypoint-initdb.d/1.sql"
+      - "./sql/B.sql:/docker-entrypoint-initdb.d/2.sql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=1
+      - MYSQL_DATABASE=persons
+        command: --max_connections=10
+    healthcheck:
+      test: ["CMD-SHELL", "mysql --user=root --password=1 --execute 'select count(1) from persons.person;' || exit 1"]
+      interval: 15s
+      timeout: 2s
+      retries: 5
+      start_period: 15s

@@ -1,0 +1,21 @@
+mysql:
+    image: mysql:5.6
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    restart: "no"
+    volumes:
+      - "./mysql-init/001-schema.sql:/docker-entrypoint-initdb.d/1.sql"
+      - "./mysql-init/002-data.sql:/docker-entrypoint-initdb.d/2.sql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=toor
+      - MYSQL_DATABASE=H5GGame
+      - MYSQL_USER=electrosvc
+      - MYSQL_PASSWORD=electrosvc
+    command: --max_connections=250
+    healthcheck:
+      test: ["CMD-SHELL", "mysql --user=root --password=toor --execute 'select count(1) from H5GGame.GameData;' || exit 1"]
+      interval: 15s
+      timeout: 2s
+      retries: 5
+      start_period: 15s

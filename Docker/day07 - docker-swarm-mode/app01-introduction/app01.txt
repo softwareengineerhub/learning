@@ -1,0 +1,36 @@
+Docker swarm is not enabled by default
+
+Once enabled (docker swarm init) we can use next commands:
+ - docker swarm
+ - docker node
+ - docker service
+ - docker stack
+ - docket secret
+ 
+ 
+После вызова docker swarm init - пишется сообщение, что текущая нода - is now a manager
+
+
+docker swarm  - container orcistrature
+
+!!!!!!!!!!!!!!!!!!!!
+Другой вариант оркестрации
+
+Kubernetes. Разработан google:
+- many features 
+- millions of containers deployment
+- overkill for smaller businesses
+
+Openshift:
+- 'Wrapper' around Kubernetes
+- Licensed by RedHat, popular with large enterprises
+- Brings enterprise class features to Kubernetes
+
+Apache Mesos:
+- Open Source Container; Orchestration backed by Apache
+- Abstracts the datacenter
+
+Mesophere:
+- Commersion version of Apache Mesos
+- A popular option with large enterprices
+

@@ -1,0 +1,21 @@
+Deploy MySql as Service in Docker Swarm
+	  
+Заходим по ssh в Leader
+docker service create --name mysql-myservice -p 3306:3306 -e MYSQL_DATABASE=persons -e MYSQL_ROOT_PASSWORD=1 mysql:5.7
+
+Заходим по ssh в Master(n3) и указываем IP leader
+docker service create --name my-service -p 8081:8081 -e MY_USER=root -e MY_PASSWORD=1 -e MY_URL=jdbc:mysql://157.245.85.167:3306/persons?useSSL=false denisprokopiuk/my-service:3.0
+
+Зайдем на IP n3(Manager)
+http://206.81.4.60:8081/my-service?wsdl
+
+Зайдем на IP n1(Leader)
+http://157.245.85.167:8081/my-service?wsdl
+
+Зайдем на IP n4 (worker)
+http://167.99.233.45:8081/my-service?wsdl
+
+С каждого IP соап работает
+
+Увидеть статус по нодам+кто лидер
+docker node ls

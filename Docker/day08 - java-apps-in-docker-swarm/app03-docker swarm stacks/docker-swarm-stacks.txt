@@ -1,0 +1,36 @@
+Stacks позволяет создать сразу несколько сервисов.
+Да еще и указывать кол-во реплик.
+Все это можно сделать просто через docker-compose
+
+
+
+Добавляем в docer-compose.yml:
+Для каждого сервиса
+
+deploy:
+	replicas: 3
+
+
+
+
+
+Заходим в консольку Leader (Manager or Worker)
+
+vi docker-compose.yml
+и всавляем наш docker-compose
+(или просто копируем его через ssh)
+
+
+И теперь запускаем 
+docker stack deploy -c docker-compose.yml my_stack
+
+
+Теперь запустим
+docker service ls
+и увидим, что все сервисы поднялись с репликами
+
+Если нам нужно удалить весь этот стек:
+docker stack rm my_stack
+
+
+

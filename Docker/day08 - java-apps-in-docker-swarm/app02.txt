@@ -1,0 +1,62 @@
+Docker Overlay Network (перекрытая)
+
+Зайдем в консольку Leader
+увидим все вервисы
+docker service ls
+
+Узнаем на каких нодах запущены сервисы
+docker service ps mysqldb
+
+Запустим свой контейнер как сервис
+docker service create --name springbootwebapp -p 8080:8080 -e SPRING_RABBITMQ_HOST=rabbitmq springframeworkguru/springbootdocker
+
+
+Посмотрим что с нашим сервисом
+docker service ps springbootwebapp
+
+
+Нам нужно создать виртуальную сеть для всзаимодействия компонентов нашего swarm
+
+Удалим все сервисы (кроме portianer)
+docker service rm mysqldb springbootwebapp
+
+
+With Overlay Network
+docker  network create --driver overlay guru-service-network
+
+
+Теперь создаем все контейнеры заново, но добавляем --network (указываем network name)
+
+#MySQL
+docker service create --name mysqldb -p 3306:3306 -e MYSQL_DATABASE=pageviewservice -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --network guru-service-network mysql
+
+#Rabbit
+docker service create --name rabbitmq -p 5671:5671 -p 5672:5672 --network guru-service-network rabbitmq
+
+#Pageview 
+docker service create --name pageviewservice -p 8081:8081 -e SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/pageviewservice -e SPRING_PROFILES_ACTIVE=mysql -e SPRING_RABBITMQ_HOST=rabbitmq --network guru-service-network springframeworkguru/pageviewservice
+
+#Webapp
+docker service create --name springbootwebapp -p 8080:8080 -e SPRING_RABBITMQ_HOST=rabbitmq --network guru-service-network springframeworkguru/springbootdocker
+
+
+
+Проверяем сервисы:
+docker service ls
+
+Посмотрим логи приложения
+docker service logs -f springbootwebapp
+
+Зайдем в приложение через web:
+http://167.99.233.45:8080/product/1
+Он работает
+
+Теперь попробуем посомтреть логи другого приложения
+docker service logs pageviewservice
+Должен работать праильно, но у меня ошибки при работе с mysql
+
+
+
+
+
+

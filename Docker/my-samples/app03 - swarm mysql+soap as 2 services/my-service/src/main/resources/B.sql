@@ -1,0 +1,1 @@
+INSERT into person(name, age) VALUES("name1", 1)

@@ -1,0 +1,14 @@
+Run from directory where docker-compose.yml is located:
+
+docker-compose up
+
+or 
+
+docker-compose up -d
+
+Для проверки:
+docker ps - должно быть 2 контейнера
+
+Проверим, что все работает
+http://192.168.99.100:8081/calc?wsdl
+http://192.168.99.100:8080/

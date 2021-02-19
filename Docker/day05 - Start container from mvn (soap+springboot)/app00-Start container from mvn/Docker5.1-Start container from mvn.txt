@@ -1,0 +1,82 @@
+Задача - хотим создать image из данного проекта и запустить еще и другой
+Те будм запускать сразу 2 контейнера - Spring boot и my-simple-soap.
+Код находится в папках на уровне данного файла.
+
+
+
+
+1) В pom.xml
+В секцию image нужно добавить
+
+##########################
+<run>
+	<ports>
+		<port>8080:8080</port>
+	</ports>
+</run>
+##########################
+
+
+2) Запускаем с консольки
+mvn docker:run
+Запускается контейнер
+
+docker ps - для проверки
+и заходим
+http://192.168.99.100:8080/
+
+Если останавливаем maven - останавливается контейнер
+
+3)Запуск контейнера в бекграунде (-d)
+mvn docker:start
+docker ps - для проверки
+
+4) Остановить контейнер
+mvn docker:stop
+docker ps - для проверки
+
+
+5) Мы можем завпускать сразу несколько images:
+
+##########################
+<images>
+                        <image>
+                            <name>${docker.image.prefix}/${docker.image.name}</name>
+                            <build>
+                                <dockerFileDir>${project.basedir}/src/main/docker/</dockerFileDir>
+                                <!--copies artifacts to docker build dir in target-->
+                                <assembly>
+                                    <descriptorRef>artifact</descriptorRef>
+                                </assembly>
+
+                                <tags>
+                                    <tag>latest</tag>
+                                    <tag>${project.version}</tag>
+                                </tags>
+                            </build>
+                            <run>
+                                <ports>
+                                    <port>8080:8080</port>
+                                </ports>
+                            </run>
+                        </image>
+
+                        <image>
+                            <name>my-simple-soap</name>
+                            <run>
+                                <ports>
+                                    <port>8081:8081</port>
+                                </ports>
+                            </run>
+                        </image>
+                    </images>
+##########################
+
+docker ps - для проверки
+там будут 2 контейнера
+
+Для проверки сервисов:
+http://192.168.99.100:8080/
+http://192.168.99.100:8081/calc?wsdl
+
+mvn docker:stop - останавливает все 2 контейнера

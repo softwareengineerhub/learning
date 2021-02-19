@@ -1,0 +1,46 @@
+Добпустим у нас есть запущенный mysql container.
+docker run -d --name denis-mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -v /d/Docker/mysql -p 3306:3306 mysql
+
+Запускаем docker info
+
+Обе команды дают ошибку:
+docker node ls
+docker service ls
+
+Запускаем
+docker swarm init
+docker info
+У нас появлется Swarm: active и еще дополнительная инфа
+
+docker node ls - показывает метаинформацию про нашу ноду
+
+What Happens with Swarm Init ?
+Private Key Infrastructure (PKI) Initialization:
+	- Root signing Certificate created for this Swarm
+	- Cert issued for first Manager Node
+	- Join Tokens Created
+Raft Consensus Database created
+	- Raft is a protocol to sync multiple nodes
+	- Stores Root Signing Certificate
+	- Configuration Data
+	- Secrets
+	- Encrypted by default on disk
+	
+	
+Запускаем container portainer
+(portainer.io/installation/)
+
+запускаем образ как сервис:
+(найти в примере на страничке docker service create)
+docker service create --name portainer --publish 9000:9000 --constraint 'node.role == manager' --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock portainer/portainer -H unix:///var/run/docker.sock
+
+
+
+docker service ls - увидим запущенный контейнер (portainer)
+docker container ps - увидим 2 запущенных контейнера (mysql и portainer)
+
+
+Заходим localhost:9000
+создаем пароль для юзера
+Попадаем на UI в которой есть управление кластером и тд
+Можно зайти в консольку, можно посмотреть логи

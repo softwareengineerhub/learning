@@ -1,0 +1,8 @@
+Docker Stacks
+
+- Use Docker Compose files to declare application stacks
+- Req API version >=3.0
+- Command docker stack deploy to deploy docker compose file
+- Stacks will manage all objects declated
+- New deploy value in compose file
+- Docker compose does not need to be installed on Swarm Server

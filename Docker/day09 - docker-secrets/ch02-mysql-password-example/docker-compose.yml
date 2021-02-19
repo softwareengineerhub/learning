@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql-myservice
+    ports:
+      - "3306:3306"
+    restart: "no"
+    environment:
+      - MYSQL_ROOT_PASSWORD_FILE='/run/secrets/mysql.txt'
+      - MYSQL_DATABASE=persons
+      - MYSQL_USER=theuser
+      - MYSQL_PASSWORD=thepassword
+    command: --max_connections=250
+
+  my-service:
+    image: denisprokopiuk/my-service:3.0
+    container_name: my-service
+    ports:
+      - "8081:8081"
+    restart: "no"
+    environment:
+      - MY_USER=root
+      - MY_PASSWORD=1
+      - MY_URL=jdbc:mysql://157.245.85.167:3306/persons?useSSL=false
+    deploy:
+      replicas: 3
+
+secrets:
+  mysql.txt:
+    external:true

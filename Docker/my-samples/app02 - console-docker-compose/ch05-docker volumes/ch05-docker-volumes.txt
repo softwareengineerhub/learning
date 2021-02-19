@@ -1,0 +1,17 @@
+Иногда из compose MySql может не запускаться.
+Это связанно с volume.
+
+Нужно удалить контейнер
+
+docker ps
+docker ps -a
+docker rm containerId
+
+Далее нужно посмотреть и удалить его voulme:
+docker volume ls
+docker volume prune
+
+потом ввести
+Yes
+
+Потом заново запкстить docker-compose up

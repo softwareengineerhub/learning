@@ -1,0 +1,23 @@
+docker push <hub-user>/<repo-name>:<tag>
+
+docker push denisprokopiuk/denissapmle:1.0.0
+
+
+docker push denisprokopiuk/thesample:1.0.0
+
+
+
+1) Собираем приложение локально
+docker build -t denisprokopiuk/thesample:1.0.0 .
+
+2) Деплоим приложение в докер хаб
+docker push denisprokopiuk/thesample:1.0.0
+
+3) Создаем image и тег latest локально:
+docker build -t denisprokopiuk/thesample:latest .
+
+4) Деплоим приложение в докер хаб
+docker push denisprokopiuk/thesample:latest
+
+5) Проверяем в докер хабе
+https://hub.docker.com/repository/registry-1.docker.io/denisprokopiuk/thesample/tags?page=1&ordering=last_updated

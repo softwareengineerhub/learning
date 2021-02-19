@@ -1,0 +1,27 @@
+Подключаемся через ssh к дроплету
+
+Читаем как установить докер:
+digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-centos-7:
+
+(sudo - судо можно не писать тк мы уже под рутом)
+sudo yum check-update
+
+скачаем последнюю версию докера
+curl -fsSL https://get.docker.com/ |sh
+
+запустим сервисы в бекграунде
+sudo systemctl start docker
+
+проверим
+sudo system status docker
+
+
+убедимся, что после ребута тоже запускается
+sudo systenctl enable docker
+
+
+docker info
+Увидим Swarm: inactive
+
+посмотрим историю команд
+history

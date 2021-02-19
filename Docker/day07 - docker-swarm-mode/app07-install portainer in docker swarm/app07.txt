@@ -1,0 +1,51 @@
+Заходим на дроплет 1 (он Manager, но не Leader уже)
+
+Устанавливаем porteiner, только меняем порт на 80
+docker service create --name portainer --publish 80:9000 --constraint 'node.role == manager' --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock portainer/portainer -H unix:///var/run/docker.sock
+
+
+и потом для проверки
+docker service ls - покажет нам , что запущен portainer
+
+docker service ps portainer - показывает статус
+
+Теперь зайдем на UI портенера:
+droplet1-host:80
+
+и мы попадаем на страничку с админкой
+
+В левом меню заходим в Swarm и видим статистику
+
+
+Останавливаем дроплет1 из UI digitalocean
+или reboot -f
+Но это не дао эффекта из-за необходимого требования quorum к Manager нодам
+Поэтому мы из Worker сделаем Manager
+docker node promote node2
+тоже не помогло
+
+docker node rm node1
+docker node rm -f node1
+
+все это не помогло
+и поэтому
+
+docker swarm init --force-new-cluster --advertise-addr node3:2377
+- ошибка, нужно указать IP 3 дроплета
+
+docker swarm init --force-new-cluster --advertise-addr 107.170.87.44:2377
+
+docker node ls
+кластер ожил и 1 Leader 0 Manager 3 Worker
+
+docker service ls
+показывает запущенный potainer
+
+docker service ps portainer
+показывает состояние этого сервиса в кластере
+
+Итого:
+portainer рестартанулся
+
+
+Теперь идем во 2 ноду 

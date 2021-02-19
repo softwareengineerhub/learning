@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="1 minute">
+
+    <property scope="context" name="LOG_ROOT" value="/var/log/electro"/>
+    <property scope="context" name="BASE_LOGGING_LEVEL" value="WARN"/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MMM-dd HH:mm:ss:SSS} [%t] %-5p %c %X - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="stash" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_ROOT}/application.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_ROOT}/application.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+    </appender>
+
+    <appender name="stats" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_ROOT}/StatsServlet.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_ROOT}/StatsServlet.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="hashes" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_ROOT}/HashCheck.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_ROOT}/HashCheck.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="STATISTICS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_ROOT}/Statistics.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_ROOT}/Statistics.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MMM-dd HH:mm:ss:SSS} %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="${BASE_LOGGING_LEVEL}">
+        <appender-ref ref="stash"/>
+    </root>
+
+    <!--who would have thought that hibernate validator depends on hibernate PeristanceProvider and loads deprecated version
+     this is to avoid log line:
+    "HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead."-->
+    <logger name="org.hibernate.ejb.HibernatePersistence" level="ERROR"/>
+
+    <!--<logger name="com.h5g.rmg" level="DEBUG"/>-->
+    <logger name="com.h5g.rmg.retry" level="DEBUG"/>
+    <!--<logger name="com.h5g.rmg.service" level="DEBUG"/>-->
+    <logger name="com.h5g.casino.relax" level="INFO"/>
+    <logger name="com.h5g.ugp.es" level="WARN"/>
+    <logger name="com.h5g.ugp.es.Status" level="INFO"/>
+    <logger name="io.dropwizard.setup.AdminEnvironment" level="ERROR"/>
+
+    <logger name="StatsServletLog" level="DEBUG">
+        <appender-ref ref="stats"/>
+    </logger>
+
+    <logger name="com.h5g.rmg.service.slotengine.HashCheckerService" level="WARN">
+        <appender-ref ref="hashes"/>
+    </logger>
+
+    <logger name="h5g.statistics" level="INFO">
+        <additivity>false</additivity>
+        <appender-ref ref="STATISTICS"/>
+    </logger>
+
+</configuration>

@@ -1,0 +1,27 @@
+Генерация ssh ключей
+
+Консоль:
+ssh-keygen -t rsa
+
+Enter file in which to save: /Users/users/.ssh/digitalocean
+Enter path phrase: (1) - можно оставить пустым
+
+затем
+ls -ltr /Users/users/jt/.ssh/
+
+увидим:
+dkey
+dkey.pub
+
+Просмотрим ключ
+
+vi /Users/users/jt/.ssh/dkey.pub
+
+Копируем (просто) ssh-rsa и тд - это private key, который мы отдаем на сервер (digitalocean)
+dkey.pub - публичный ключ при помощи которого мы будем подключаться с клиента
+
+Для этого:
+ssh -i "~/.ssh/digitalocean.pub" root@107.170.87.50
+(предложит ввести пароль для ключа)
+и мы находимся на удлаенном компьютере
+

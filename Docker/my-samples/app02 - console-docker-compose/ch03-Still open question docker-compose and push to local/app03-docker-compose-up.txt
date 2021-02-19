@@ -1,0 +1,9 @@
+Run from directory where docker-compose.yml is located:
+
+docker-compose push
+
+просто создает\push сразу несколько образов
+
+
+Для проверки:
+docker images - должно быть 2 контейнера

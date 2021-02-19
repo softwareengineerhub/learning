@@ -1,0 +1,25 @@
+Deploy MySql as Service in Docker Swarm
+	  
+Заходим по ssh в Leader
+docker service create --name mysql-myservice -p 3306:3306 -e MYSQL_DATABASE=persons -e MYSQL_ROOT_PASSWORD=1 mysql:5.7
+
+
+Далее проверяем
+docker service ls
+должен показать portainer и mysql
+
+
+Мы можем увидеть на каком хосте запустился это сервис
+docker service ps mysqldb
+ID                  NAME                IMAGE               NODE                         DESIRED STATE       CURRENT STATE           ERROR               PORTS
+k21uqn8or0c6        mysqldb.1           mysql:latest        centos-s-4vcpu-8gb-nyc1-02   Running             Running 2 minutes ago
+
+
+Зайдем в portainer services:
+http://167.99.233.45/#/services
+Видно, что у нас есть 2 сервиса
+
+Документация по командам docker service:
+https://docs.docker.com.engine/commandline/service/#description
+Например
+dockerservice rm servicename

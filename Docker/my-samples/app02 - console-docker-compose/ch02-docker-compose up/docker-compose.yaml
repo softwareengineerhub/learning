@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  my-simple-soap:
+    image: denisprokopiuk/my-simple-soap
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      SOME_KEY: somevalue
+      
+  thesample:
+    depends_on:
+      - my-simple-soap
+    image: denisprokopiuk/thesample:latest
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      SOME_KEY2: somevalue2
+volumes:
+  db_data:

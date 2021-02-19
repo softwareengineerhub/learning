@@ -1,0 +1,1850 @@
+{
+  "baseOptions": {
+    "1": [
+      20,
+      30,
+      40,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500,
+      750,
+      1000,
+      1500,
+      2000,
+      3000,
+      5000,
+      7500,
+      10000,
+      15000,
+      20000,
+      25000,
+      30000,
+      40000,
+      50000
+    ],
+    "3": [
+      10,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500,
+      750,
+      1000,
+      1500,
+      2000,
+      3000,
+      5000,
+      7500,
+      10000,
+      15000
+    ],
+    "5": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500,
+      750,
+      1000,
+      1500,
+      2000,
+      3000,
+      5000,
+      7500,
+      10000
+    ],
+    "10": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500,
+      750,
+      1000,
+      1500,
+      2000,
+      3000,
+      5000
+    ],
+    "15": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500,
+      750,
+      1000,
+      1500,
+      2000,
+      3000
+    ],
+    "20": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500,
+      750,
+      1000,
+      1500,
+      2000
+    ],
+    "25": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500,
+      750,
+      1000,
+      1500,
+      2000
+    ],
+    "30": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500,
+      750,
+      1000,
+      1500
+    ],
+    "33": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500,
+      750,
+      1000,
+      1500
+    ],
+    "35": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500,
+      750,
+      1000
+    ],
+    "40": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500,
+      750,
+      1000
+    ],
+    "50": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500,
+      750,
+      1000
+    ],
+    "60": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500,
+      750
+    ],
+    "75": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500
+    ],
+    "80": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500
+    ],
+    "89": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500
+    ],
+    "90": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500
+    ],
+    "99": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500
+    ],
+    "100": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      300,
+      500
+    ],
+    "500": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      40,
+      50,
+      60,
+      80,
+      100
+    ]
+  },
+  "operators": [
+    {
+      "id": "default",
+      "name": "default",
+      "showHomeButton": {
+        "desktop": true,
+        "mobile": true
+      },
+      "minBet": 1,
+      "maxBet": 100000,
+      "default": 20,
+      "maxLiability": 100000000,
+      "currencyMultipliers": {
+        "HRK": 10,
+        "CHF": 2,
+        "MXN": 20,
+        "ARS": 5,
+        "LTL": 3,
+        "ZAR": 10,
+        "INR": 70,
+        "VND": 23000,
+        "THB": 50,
+        "CNY": 10,
+        "AUD": 2,
+        "KRW": 1200,
+        "JPY": 200,
+        "PLN": 5,
+        "GBP": 1,
+        "HUF": 300,
+        "TRY": 4,
+        "RUB": 100,
+        "TWD": 50,
+        "ISK": 100,
+        "HKD": 15,
+        "EUR": 1,
+        "DKK": 10,
+        "RMB": 10,
+        "USD": 2,
+        "MYR": 3,
+        "CAD": 2,
+        "BGN": 2,
+        "NOK": 10,
+        "RON": 4,
+        "SGD": 3,
+        "CZK": 30,
+        "SEK": 10,
+        "NZD": 2,
+        "UAH": 10,
+        "BRL": 3
+      }
+    },
+    {
+      "id": "4",
+      "name": "Kindred",
+      "maxBet": 500000,
+      "multiSessionRefreshPage": true,
+      "slamEnabled": false,
+      "timeBetweenSpins": 3
+    },
+    {
+      "id": "230",
+      "name": "Sunnyplayer",
+      "defaultBet": 1900,
+      "currencyMultipliers": {
+        "PLN": 10
+      }
+    },
+    {
+      "id": "229",
+      "name": "Sunmaker",
+      "defaultBet": 1900,
+      "minBet": 100,
+      "maxLiability": 1000
+    },
+    {
+      "id": "228",
+      "name": "Norgesspil"
+    },
+    {
+      "id": "227",
+      "name": "Suomiautomaatti"
+    },
+    {
+      "id": "226",
+      "name": "Sveacasino"
+    },
+    {
+      "id": "225",
+      "name": "Eurolotto"
+    },
+    {
+      "id": "224",
+      "name": "Euroslots"
+    },
+    {
+      "id": "223",
+      "name": "Cherrycasino"
+    },
+    {
+      "id": "17",
+      "name": "ComeOn"
+    },
+    {
+      "id": "27",
+      "name": "Suomikasino"
+    },
+    {
+      "id": "28",
+      "name": "Folkeautomaten"
+    },
+    {
+      "id": "29",
+      "name": "Mobilbet"
+    },
+    {
+      "id": "30",
+      "name": "Casinostugan"
+    },
+    {
+      "id": "31",
+      "name": "KasynoPL"
+    },
+    {
+      "id": "89",
+      "name": "Mobilautomaten"
+    },
+    {
+      "id": "32",
+      "name": "Getlucky"
+    },
+    {
+      "id": "386",
+      "name": "Snabbare"
+    },
+    {
+      "id": "389",
+      "name": "Blitzino"
+    },
+    {
+      "id": "387",
+      "name": "Hajper"
+    },
+    {
+      "id": "388",
+      "name": "Nopeampi"
+    },
+    {
+      "id": "427",
+      "name": "Galaksino"
+    },
+    {
+      "id": "484",
+      "name": "Manekichi"
+    },
+    {
+      "id": "23",
+      "name": "Guts"
+    },
+    {
+      "id": "40",
+      "name": "Thrills"
+    },
+    {
+      "id": "47",
+      "name": "Rizk"
+    },
+    {
+      "id": "62",
+      "name": "Kaboo"
+    },
+    {
+      "id": "66",
+      "name": "Dunder"
+    },
+    {
+      "id": "87",
+      "name": "Cashmio"
+    },
+    {
+      "id": "88",
+      "name": "CasinoPop"
+    },
+    {
+      "id": "91",
+      "name": "Shadowbet"
+    },
+    {
+      "id": "123",
+      "name": "Ikibu"
+    },
+    {
+      "id": "129",
+      "name": "casinocalzone"
+    },
+    {
+      "id": "173",
+      "name": "KarjalaKasino"
+    },
+    {
+      "id": "192",
+      "name": "MetalCasino"
+    },
+    {
+      "id": "201",
+      "name": "AgentSpinner"
+    },
+    {
+      "id": "206",
+      "name": "mobil6000"
+    },
+    {
+      "id": "207",
+      "name": "Highroller"
+    },
+    {
+      "id": "213",
+      "name": "Dreamz"
+    },
+    {
+      "id": "245",
+      "name": "Omniacasino"
+    },
+    {
+      "id": "267",
+      "name": "Rolla"
+    },
+    {
+      "id": "268",
+      "name": "Wishmaker"
+    },
+    {
+      "id": "365",
+      "name": "GutsExpress"
+    },
+    {
+      "id": "374",
+      "name": "OneTimePoker"
+    },
+    {
+      "id": "416",
+      "name": "GLHF"
+    },
+    {
+      "id": "468",
+      "name": "Skycity"
+    },
+    {
+      "id": "354",
+      "name": "11.lv",
+      "maxBet": 15000,
+      "maxLiability": 20000000
+    },
+    {
+      "id": "340",
+      "name": "Casinoheroes",
+      "maxBet": 20000,
+      "maxLiability": 25000000
+    },
+    {
+      "id": "341",
+      "name": "Betser",
+      "maxBet": 20000,
+      "maxLiability": 25000000
+    },
+    {
+      "id": "490",
+      "name": "SKILLONNET",
+      "maxLiability": 25000000
+    },
+    {
+      "id": "186",
+      "name": "Twin",
+      "maxBet": 5000,
+      "currencyMultipliers": {
+        "EUR": 1,
+        "USD": 1,
+        "CAD": 1,
+        "NZD": 1,
+        "INR": 100,
+        "BRL": 5
+      }
+    },
+    {
+      "id": "177",
+      "name": "Gammix",
+      "maxLiability": 25000000
+    }
+  ],
+  "games": [
+    {
+      "gameId": "1003",
+      "name": "Majestic Sea",
+      "baseBet": 30,
+      "max": 600,
+      "overrides": [
+        {
+          "operator": "230",
+          "bet-options": [
+            20,
+            30,
+            40,
+            50
+          ]
+        },
+        {
+          "operator": "229",
+          "defaultBet": 20,
+          "minBet": 50,
+          "maxLiability": 100000
+        }
+      ]
+    },
+    {
+      "gameId": "1010",
+      "name": "Dangerous Beauty",
+      "baseBet": 40,
+      "max": 1000,
+      "supportedOptions": [
+        2,
+        3,
+        10,
+        40,
+        50
+      ],
+      "overrides": [
+        {
+          "operator": "230",
+          "bet-options": [
+            20,
+            30,
+            40,
+            50
+          ]
+        }
+      ],
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1011",
+      "name": "Vivaldi's Seasons",
+      "baseBet": 40,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1013",
+      "name": "Sirens",
+      "baseBet": 30,
+      "max": 15487
+    },
+    {
+      "gameId": "1014",
+      "name": "Shadow of the Panther",
+      "baseBet": 30,
+      "max": 1000,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1015",
+      "name": "Jaguar Princess",
+      "baseBet": 50,
+      "max": 500,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1020",
+      "name": "Night of the Wolf",
+      "baseBet": 30,
+      "max": 1000
+    },
+    {
+      "gameId": "1022",
+      "name": "Michelangelo",
+      "baseBet": 99,
+      "max": 289,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1023",
+      "name": "Secrets of the Forest",
+      "baseBet": 99,
+      "html5InfoPage": true,
+      "max": 289
+    },
+    {
+      "gameId": "1024",
+      "name": "Renoir Riches",
+      "baseBet": 99,
+      "max": 289
+    },
+    {
+      "gameId": "1025",
+      "name": "Rocket Man",
+      "baseBet": 99,
+      "max": 289
+    },
+    {
+      "gameId": "1026",
+      "name": "Twin Win",
+      "baseBet": 15,
+      "max": 862
+    },
+    {
+      "gameId": "1028",
+      "name": "Lion Heart",
+      "baseBet": 30,
+      "max": 15487
+    },
+    {
+      "gameId": "1029",
+      "name": "Queen Isabella",
+      "baseBet": 40,
+      "max": 3252
+    },
+    {
+      "gameId": "1030",
+      "name": "A Night of Mystery",
+      "baseBet": 40,
+      "max": 500
+    },
+    {
+      "gameId": "1033",
+      "name": "Figaro",
+      "baseBet": 90,
+      "max": 1485
+    },
+    {
+      "gameId": "1034",
+      "name": "The Charleston",
+      "baseBet": 90,
+      "max": 1485
+    },
+    {
+      "gameId": "1035",
+      "name": "White Falls",
+      "baseBet": 90,
+      "max": 1485
+    },
+    {
+      "gameId": "1036",
+      "name": "Lucky Horse",
+      "baseBet": 90,
+      "max": 1485
+    },
+    {
+      "gameId": "1039",
+      "name": "Cherry Mischief",
+      "baseBet": 40,
+      "max": 1636
+    },
+    {
+      "gameId": "1040",
+      "name": "Golden Knight",
+      "baseBet": 80,
+      "max": 923,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1041",
+      "name": "The Amulet and the Charm",
+      "baseBet": 80,
+      "max": 923
+    },
+    {
+      "gameId": "1042",
+      "name": "Hoot Loot",
+      "baseBet": 20,
+      "max": 1563
+    },
+    {
+      "gameId": "1043",
+      "name": "Liger Loot",
+      "baseBet": 20,
+      "max": 1563
+    },
+    {
+      "gameId": "1047",
+      "name": "Witches Riches",
+      "baseBet": 40,
+      "max": 1486
+    },
+    {
+      "gameId": "1049",
+      "name": "Double Da Vinci Diamonds",
+      "baseBet": 40,
+      "html5InfoPage": true,
+      "max": 1468
+    },
+    {
+      "gameId": "1052",
+      "name": "Thundering Buffalo",
+      "baseBet": 50,
+      "max": 1904,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1055",
+      "name": "The Lovely Outlaws",
+      "baseBet": 99,
+      "max": 289
+    },
+    {
+      "gameId": "1056",
+      "name": "Gypsy",
+      "baseBet": 50,
+      "max": 999,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1062",
+      "name": "Big Dragon Lounge",
+      "baseBet": 40,
+      "max": 13585,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1063",
+      "name": "Foxy Dynamite",
+      "baseBet": 60,
+      "max": 167
+    },
+    {
+      "gameId": "1066",
+      "name": "Lady of Hope",
+      "baseBet": 40,
+      "max": 301
+    },
+    {
+      "gameId": "1071",
+      "name": "Legends of Troy",
+      "baseBet": 100,
+      "max": 1134,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1074",
+      "name": "The Enchantment",
+      "baseBet": 50,
+      "max": 1904
+    },
+    {
+      "gameId": "1075",
+      "name": "Midnight Eclipse",
+      "baseBet": 40,
+      "html5InfoPage": true,
+      "max": 430
+    },
+    {
+      "gameId": "1078",
+      "name": "Diamonds of Athens",
+      "baseBet": 50,
+      "max": 500
+    },
+    {
+      "gameId": "1080",
+      "name": "Jazz",
+      "baseBet": 35,
+      "max": 223
+    },
+    {
+      "gameId": "1084",
+      "name": "Dream Beauty",
+      "baseBet": 50,
+      "max": 3456
+    },
+    {
+      "gameId": "1085",
+      "name": "Moon Warriors",
+      "baseBet": 50,
+      "max": 1904
+    },
+    {
+      "gameId": "1089",
+      "name": "Flower Bride",
+      "baseBet": 60,
+      "max": 2227
+    },
+    {
+      "gameId": "1090",
+      "name": "Valkyrie Queen",
+      "baseBet": 40,
+      "html5InfoPage": true,
+      "max": 301
+    },
+    {
+      "gameId": "1092",
+      "name": "Silk and Steel",
+      "baseBet": 40,
+      "max": 1500
+    },
+    {
+      "gameId": "1093",
+      "name": "Cabaret Nights",
+      "baseBet": 40,
+      "max": 529
+    },
+    {
+      "gameId": "1103",
+      "name": "Golden Three Kingdom",
+      "baseBet": 40,
+      "max": 5446,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1104",
+      "name": "Golden Peony",
+      "baseBet": 80,
+      "max": 952
+    },
+    {
+      "gameId": "1107",
+      "name": "West Journey Treasure Hunt",
+      "baseBet": 40,
+      "max": 2500
+    },
+    {
+      "gameId": "1109",
+      "name": "Great Balloon Adventure",
+      "baseBet": 40,
+      "max": 301
+    },
+    {
+      "gameId": "1114",
+      "name": "Tales of Hercules",
+      "baseBet": 40,
+      "max": 430
+    },
+    {
+      "gameId": "1127",
+      "name": "Night Jasmine",
+      "baseBet": 50,
+      "max": 999
+    },
+    {
+      "gameId": "1134",
+      "name": "Hail King of Fortune!",
+      "baseBet": 50,
+      "max": 3330
+    },
+    {
+      "gameId": "1137",
+      "name": "Captain Payback",
+      "baseBet": 50,
+      "max": 1162,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1139",
+      "name": "La Torera Roja",
+      "baseBet": 60,
+      "max": 1386
+    },
+    {
+      "gameId": "1145",
+      "name": "I Need a Hero",
+      "baseBet": 40,
+      "max": 2025
+    },
+    {
+      "gameId": "1147",
+      "name": "Cat Gangster",
+      "baseBet": 50,
+      "max": 4873,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1151",
+      "name": "Lady Helsing",
+      "baseBet": 40,
+      "max": 1168,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1153",
+      "name": "Split Dragon",
+      "baseBet": 40,
+      "max": 574
+    },
+    {
+      "gameId": "1166",
+      "name": "Wellspring",
+      "baseBet": 50,
+      "max": 15552
+    },
+    {
+      "gameId": "1174",
+      "name": "DaVinci Ways",
+      "baseBet": 40,
+      "max": 430,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1179",
+      "name": "Moonlit Mermaids",
+      "baseBet": 80,
+      "max": 952
+    },
+    {
+      "gameId": "1186",
+      "name": "The Swordsman",
+      "baseBet": 50,
+      "html5InfoPage": true,
+      "max": 500
+    },
+    {
+      "gameId": "1191",
+      "name": "Cool Loot",
+      "baseBet": 20,
+      "max": 1563,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1192",
+      "name": "Goddess of Valhalla",
+      "baseBet": 100,
+      "max": 1134
+    },
+    {
+      "gameId": "1198",
+      "name": "Tumbling Together",
+      "baseBet": 40,
+      "max": 301
+    },
+    {
+      "gameId": "1207",
+      "name": "Sapphire Tiger",
+      "baseBet": 60,
+      "max": 2794
+    },
+    {
+      "gameId": "1215",
+      "name": "Forces of Nature",
+      "baseBet": 100,
+      "max": 1134
+    },
+    {
+      "gameId": "1219",
+      "name": "Triple Raven",
+      "baseBet": 50,
+      "max": 1748
+    },
+    {
+      "gameId": "1221",
+      "name": "The Haunted Horseman",
+      "baseBet": 60,
+      "max": 198
+    },
+    {
+      "gameId": "1231",
+      "name": "Mystery Train",
+      "baseBet": 40,
+      "max": 1158
+    },
+    {
+      "gameId": "1240",
+      "name": "Dazzling Dragons",
+      "baseBet": 40,
+      "max": 721
+    },
+    {
+      "gameId": "1244",
+      "name": "Morgan Le Faye",
+      "baseBet": 30,
+      "max": 1124,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1250",
+      "name": "Glinda Glitters",
+      "baseBet": 60,
+      "max": 559
+    },
+    {
+      "gameId": "1251",
+      "name": "Majestic Cats",
+      "baseBet": 30,
+      "max": 1012,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1252",
+      "name": "Empress of the Nile",
+      "baseBet": 50,
+      "max": 263
+    },
+    {
+      "gameId": "1254",
+      "name": "Golden Gladiator",
+      "baseBet": 60,
+      "max": 711
+    },
+    {
+      "gameId": "1258",
+      "name": "The Three Graces",
+      "baseBet": 75,
+      "max": 383
+    },
+    {
+      "gameId": "1261",
+      "name": "Wild Horses",
+      "baseBet": 40,
+      "max": 335
+    },
+    {
+      "gameId": "1264",
+      "name": "Snow Monkeys",
+      "baseBet": 50,
+      "max": 1904
+    },
+    {
+      "gameId": "1266",
+      "name": "Time and Again",
+      "baseBet": 40,
+      "max": 2000
+    },
+    {
+      "gameId": "1267",
+      "name": "Outback Walkabout",
+      "baseBet": 50,
+      "max": 375
+    },
+    {
+      "gameId": "1268",
+      "name": "Green Machine Deluxe",
+      "baseBet": 500,
+      "html5InfoPage": true,
+      "max": 1235
+    },
+    {
+      "gameId": "1269",
+      "name": "Art of the Steal",
+      "baseBet": 20,
+      "max": 1563,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1272",
+      "name": "Escape. Reset. Recharge.",
+      "baseBet": 40,
+      "max": 1000
+    },
+    {
+      "gameId": "1274",
+      "name": "Magnificent Jewels",
+      "baseBet": 60,
+      "max": 726,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1275",
+      "name": "Golden Sheep",
+      "baseBet": 50,
+      "max": 5058
+    },
+    {
+      "gameId": "1276",
+      "name": "Divine Luck",
+      "baseBet": 50,
+      "max": 1000
+    },
+    {
+      "gameId": "1281",
+      "name": "Warrior Maiden",
+      "baseBet": 50,
+      "max": 1904
+    },
+    {
+      "gameId": "1315",
+      "name": "Bourbon Street Bash",
+      "baseBet": 40,
+      "customCss": true,
+      "max": 10000,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1326",
+      "name": "Sailing the 7 Skies",
+      "baseBet": 90,
+      "max": 1485,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1331",
+      "name": "All That Cash",
+      "baseBet": 3,
+      "max": 3333,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1341",
+      "name": "Western Champions",
+      "baseBet": 40,
+      "max": 1158
+    },
+    {
+      "gameId": "1346",
+      "name": "Legends of Troy: Achilles' Glory",
+      "baseBet": 80,
+      "max": 213
+    },
+    {
+      "gameId": "1352",
+      "name": "Triple Hoot",
+      "baseBet": 50,
+      "max": 1748,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1353",
+      "name": "Temple of the Golden Monkey",
+      "baseBet": 99,
+      "max": 289,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1355",
+      "name": "Empress of Time: Destiny",
+      "baseBet": 50,
+      "max": 15552
+    },
+    {
+      "gameId": "1359",
+      "name": "Secrets of the Pixies",
+      "baseBet": 60,
+      "max": 764
+    },
+    {
+      "gameId": "1360",
+      "name": "Majestic Sea 2",
+      "baseBet": 40,
+      "max": 430,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1364",
+      "name": "A Visit from St. Nick",
+      "baseBet": 50,
+      "html5InfoPage": true,
+      "max": 15552
+    },
+    {
+      "gameId": "1378",
+      "name": "When Pigs Fly",
+      "baseBet": 75,
+      "max": 383
+    },
+    {
+      "gameId": "1388",
+      "name": "Gobblers Gone Wylde",
+      "baseBet": 40,
+      "max": 335
+    },
+    {
+      "gameId": "1390",
+      "name": "Lawless Love",
+      "baseBet": 80,
+      "max": 923,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1391",
+      "name": "Canadian Wild",
+      "baseBet": 50,
+      "max": 999,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1393",
+      "name": "Cocktail Cash",
+      "baseBet": 50,
+      "max": 15552,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1394",
+      "name": "Madame Fortune",
+      "baseBet": 40,
+      "max": 721
+    },
+    {
+      "gameId": "1398",
+      "name": "Pride and Prejudice",
+      "baseBet": 40,
+      "max": 1000
+    },
+    {
+      "gameId": "1399",
+      "name": "Secrets of the Forest 2: Pixie Paradise",
+      "baseBet": 60,
+      "max": 726,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1401",
+      "name": "Jenson Matlock and the Gold Peacock",
+      "baseBet": 40,
+      "max": 301
+    },
+    {
+      "gameId": "1403",
+      "name": "Tiki Idol",
+      "baseBet": 40,
+      "max": 721,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1404",
+      "name": "Banana Splits",
+      "baseBet": 60,
+      "max": 943,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1410",
+      "name": "Double Dinosaur Deluxe",
+      "baseBet": 50,
+      "max": 2321
+    },
+    {
+      "gameId": "1413",
+      "name": "Dollar Llama",
+      "baseBet": 100,
+      "max": 1134
+    },
+    {
+      "gameId": "1415",
+      "name": "Eagle's Flight",
+      "baseBet": 40,
+      "html5InfoPage": true,
+      "max": 574
+    },
+    {
+      "gameId": "1419",
+      "name": "Lucky Rooster",
+      "baseBet": 80,
+      "max": 213,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1420",
+      "name": "Lucky Strip",
+      "baseBet": 40,
+      "max": 10000
+    },
+    {
+      "gameId": "1421",
+      "name": "Jungle Jack",
+      "baseBet": 75,
+      "max": 383
+    },
+    {
+      "gameId": "1422",
+      "name": "Medusa's Wild",
+      "baseBet": 75,
+      "max": 383
+    },
+    {
+      "gameId": "1424",
+      "name": "Tiny Treasures",
+      "baseBet": 3,
+      "max": 3333,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1425",
+      "name": "The Golden Vault of the Pharaohs",
+      "baseBet": 3,
+      "max": 3333,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1428",
+      "name": "Belle and the Beast",
+      "baseBet": 50,
+      "max": 2534,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1430",
+      "name": "Triple Topaz",
+      "baseBet": 50,
+      "max": 1748
+    },
+    {
+      "gameId": "1431",
+      "name": "Joker's Riches",
+      "baseBet": 40,
+      "html5InfoPage": true,
+      "max": 335
+    },
+    {
+      "gameId": "1432",
+      "name": "Mayan Goddess",
+      "baseBet": 50,
+      "max": 1840
+    },
+    {
+      "gameId": "1433",
+      "name": "Prince of the Night",
+      "baseBet": 50,
+      "max": 263
+    },
+    {
+      "gameId": "1434",
+      "name": "Black Sail Beauties",
+      "baseBet": 50,
+      "max": 500,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1445",
+      "name": "Caught in the Widow's Web",
+      "baseBet": 60,
+      "max": 395,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1446",
+      "name": "Wild Tusks",
+      "baseBet": 50,
+      "max": 1162
+    },
+    {
+      "gameId": "1447",
+      "name": "Legacy of Cleopatra's Palace",
+      "baseBet": 40,
+      "max": 1486
+    },
+    {
+      "gameId": "1448",
+      "name": "Da Vinci",
+      "baseBet": 20,
+      "max": 530
+    },
+    {
+      "gameId": "1449",
+      "name": "Shadow Diamond: Noir",
+      "baseBet": 50,
+      "max": 1000
+    },
+    {
+      "gameId": "1452",
+      "name": "Lucky Pug",
+      "baseBet": 60,
+      "max": 559
+    },
+    {
+      "gameId": "1454",
+      "name": "Lucky Lassie",
+      "baseBet": 50,
+      "max": 375
+    },
+    {
+      "gameId": "1464",
+      "name": "1000 Pearls",
+      "baseBet": 50,
+      "max": 15552
+    },
+    {
+      "gameId": "1466",
+      "name": "Dino Dollars",
+      "baseBet": 60,
+      "max": 711
+    },
+    {
+      "gameId": "1467",
+      "name": "Old Money Deluxe",
+      "baseBet": 50,
+      "max": 2321
+    },
+    {
+      "gameId": "1470",
+      "name": "Cosmic Jewels",
+      "baseBet": 80,
+      "max": 213,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1471",
+      "name": "Beer Barrel Bash",
+      "baseBet": 80,
+      "max": 6727,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "2025",
+      "name": "Platinum Goddess",
+      "baseBet": 40,
+      "max": 1000,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "2046",
+      "name": "Silver Enchantress",
+      "baseBet": 50,
+      "max": 4386,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "2067",
+      "name": "Russian Wolf",
+      "baseBet": 80,
+      "max": 2508
+    },
+    {
+      "gameId": "2098",
+      "name": "PURRates of the CATibbean",
+      "baseBet": 50,
+      "max": 1000,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "2099",
+      "name": "Way Out Wilds",
+      "baseBet": 80,
+      "html5InfoPage": true,
+      "max": 6727
+    },
+    {
+      "gameId": "2910",
+      "name": "Way Out Wilds Promo Spins",
+      "baseBet": 80,
+      "html5InfoPage": true,
+      "max": 6727
+    },
+    {
+      "gameId": "2100",
+      "name": "Stackin' Kracken 7s",
+      "baseBet": 50,
+      "max": 2000
+    },
+    {
+      "gameId": "2130",
+      "name": "Pick-Nik Park",
+      "baseBet": 80,
+      "customCss": true,
+      "max": 560,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "2180",
+      "name": "Multiply Like Bunnies",
+      "baseBet": 50,
+      "max": 10369
+    },
+    {
+      "gameId": "2221",
+      "name": "Captain Payback 2",
+      "baseBet": 50,
+      "max": 1274,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "2510",
+      "name": "Glory On Ice",
+      "baseBet": 30,
+      "max": 1124
+    },
+    {
+      "gameId": "2550",
+      "name": "Triple Monkey",
+      "baseBet": 50,
+      "max": 5001
+    },
+    {
+      "gameId": "2551",
+      "name": "Triple Buffalo",
+      "baseBet": 50,
+      "max": 5001
+    },
+    {
+      "gameId": "2610",
+      "name": "Golden Knight II",
+      "baseBet": 80,
+      "html5InfoPage": true,
+      "max": 5052
+    },
+    {
+      "gameId": "2650",
+      "name": "All That Cash: Power Bet",
+      "baseBet": 3,
+      "max": 3333,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "2660",
+      "name": "The Amulet and the Charm: Power Bet",
+      "baseBet": 80,
+      "max": 892
+    },
+    {
+      "gameId": "2690",
+      "name": "Goldstruck",
+      "baseBet": 50,
+      "html5InfoPage": true,
+      "html5Preloader": false,
+      "max": 2362
+    },
+    {
+      "gameId": "2770",
+      "name": "The Leprechaun King",
+      "baseBet": 60,
+      "max": 4581,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "2830",
+      "name": "Triple Double Da Vinci Diamonds",
+      "baseBet": 40,
+      "max": 2312,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "2840",
+      "name": "Shadow of the Panther Power Bet",
+      "baseBet": 40,
+      "portraitOnly": true,
+      "html5InfoPage": true,
+      "max": 1490
+    },
+    {
+      "gameId": "2880",
+      "name": "Silver Enchantress",
+      "baseBet": 50,
+      "max": 4386,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "2881",
+      "name": "Roman Revelry",
+      "baseBet": 50,
+      "max": 4386,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "2882",
+      "name": "Pele's Paradise",
+      "baseBet": 50,
+      "max": 4386,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "2890",
+      "name": "Pick-Nik Park",
+      "baseBet": 80,
+      "html5InfoPage": true,
+      "max": 560
+    },
+    {
+      "gameId": "2891",
+      "name": "Royal Rhino",
+      "baseBet": 80,
+      "html5InfoPage": true,
+      "max": 560
+    },
+    {
+      "gameId": "2970",
+      "name": "Michelangelo",
+      "baseBet": 99,
+      "max": 289,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "1168",
+      "name": "Celtic Courage",
+      "baseBet": 20,
+      "max": 1168,
+      "html5InfoPage": true
+    },
+    {
+      "gameId": "2960",
+      "name": "Thundering Buffalo Jackpot Dash",
+      "baseBet": 15,
+      "portraitOnly": true,
+      "supportedOptions": [
+        1,
+        2,
+        5,
+        10,
+        20,
+        50,
+        100,
+        200,
+        500,
+        1000,
+        2000
+      ],
+      "html5InfoPage": true,
+      "max": 1830,
+      "html5Preloader": true
+    },
+    {
+      "gameId": "2651",
+      "name": "The Golden Vault of the Pharaohs Power Bet",
+      "baseBet": 3,
+      "html5InfoPage": true,
+      "max": 3333
+    },
+    {
+      "gameId": "3150",
+      "name": "Joker's Riches 2",
+      "baseBet": "20",
+      "html5InfoPage": true,
+      "max": 1000
+    },
+    {
+      "gameId": "2950",
+      "name": "The Green Machine Deluxe Power Bet",
+      "baseBet": 25,
+      "portraitOnly": true,
+      "html5InfoPage": true,
+      "max": 1270,
+      "html5Preloader": true
+    },
+    {
+      "gameId": "2470",
+      "name": "Cosmic Heart",
+      "baseBet": "20",
+      "mobilePortraitOnly": true,
+      "html5InfoPage": true,
+      "max": 1270
+    },
+    {
+      "gameId": "3270",
+      "name": "Fort of Fortunes",
+      "baseBet": "20",
+      "max": 1270
+    },
+    {
+      "gameId": "3090",
+      "name": "CandyBlasted",
+      "baseBet": "10",
+      "mobilePortraitOnly": true,
+      "html5InfoPage": true,
+      "max": 1270
+    },
+    {
+      "gameId": "3130",
+      "name": "Hot Blox",
+      "baseBet": 5,
+      "max": 10031
+    },
+    {
+      "gameId": "2990",
+      "name": "Beat the House",
+      "baseBet": "20",
+      "max": 4237
+    },
+    {
+      "gameId": "3230",
+      "name": "Teatime Treasures",
+      "baseBet": 25,
+      "max": 4610
+    }
+  ],
+  "languages": []
+}
