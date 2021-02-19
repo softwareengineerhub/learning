@@ -1,0 +1,184 @@
+A rack is a logical set of nodes in close proximity to each
+other, perhaps on physical machines in a single rack of equipment. A data center is a
+logical set of racks, perhaps located in the same building and connected by reliable
+network.
+
+Gossip
+Because Cassandra gossip is used for failure detection, the Gossiper class maintains a
+list of nodes that are alive and dead.
+Here is how the gossiper works:
+1. Once per second, the gossiper will choose a random node in the cluster and initialize
+a gossip session with it. Each round of gossip requires three messages.
+2. The gossip initiator sends its chosen friend a GossipDigestSyn message.
+3. When the friend receives this message, it returns a GossipDigestAck message.
+4. When the initiator receives the ack message from the friend, it sends the friend a
+GossipDigestAck2 message to complete the round of gossip.
+
+
+Snitches
+The job of a snitch is to provide information about your network topology so that
+Cassandra can efficiently route requests. The snitch will figure out where nodes are in
+relation to other nodes. The snitch will determine relative host proximity for each
+node in a cluster, which is used to determine which nodes to read and write from.
+As an example, let’s examine how the snitch participates in a read operation. When
+Cassandra performs a read, it must contact a number of replicas determined by the
+consistency level. In order to support the maximum speed for reads, Cassandra
+selects a single replica to query for the full object, and asks additional replicas for
+hash values in order to ensure the latest version of the requested data is returned. The
+snitch helps to help identify the replica that will return the fastest, and this is the replica
+which is queried for the full data.
+
+
+Rings and Tokens
+So far we’ve been focusing on how Cassandra keeps track of the physical layout of
+nodes in a cluster. Let’s shift gears and look at how Cassandra distributes data across
+these nodes.
+Cassandra represents the data managed by a cluster as a ring. Each node in the ring is
+assigned one or more ranges of data described by a token, which determines its position
+in the ring. For example, in the default configuration, a token is a 64-bit integer
+ID used to identify each partition. This gives a possible range for tokens from −263 to
+263−1.
+
+
+
+Virtual Nodes
+Early versions of Cassandra assigned a single token (and therefore by implication, a
+single token range) to each node, in a fairly static manner, requiring you to calculate
+tokens for each node. Although there are tools available to calculate tokens based on
+a given number of nodes, it was still a manual process to configure the ini
+tial_token property for each node in the cassandra.yaml file. This also made adding
+or replacing a node an expensive operation, as rebalancing the cluster required moving
+a lot of data.
+Cassandra’s 1.2 release introduced the concept of virtual nodes, also called vnodes for
+short. Instead of assigning a single token to a node, the token range is broken up into
+multiple smaller ranges. Each physical node is then assigned multiple tokens. Historically,
+each node has been assigned 256 of these tokens, meaning that it represents 256
+virtual nodes (although we’ll discuss possible changes to this value in Chapter 10).
+Virtual nodes have been enabled by default since 2.0.
+Vnodes make it easier to maintain a cluster containing heterogeneous machines. For
+nodes in your cluster that have more computing resources available to them, you can
+increase the number of vnodes by setting the num_tokens property in the cassandra.
+yaml file. Conversely, you might set num_tokens lower to decrease the number of
+vnodes for less capable machines.
+Cassandra automatically handles the calculation of token ranges for each node in the
+cluster in proportion to their num_tokens value. Token assignments for vnodes are
+calculated by the org.apache.cassandra.dht.tokenallocator.ReplicationAware
+TokenAllocator class.
+
+
+
+Partitioners
+A partitioner, then,
+is a hash function for computing the token of a partition key
+
+
+Replication Strategies
+Java Strategy pattern
+
+
+Consistency Level 
+Consistency is tuneable in Cassandra because clients can specify the desired consistency
+level on both reads and writes. There is an equation that is popularly used to
+represent the way to achieve strong consistency in Cassandra: R + W > RF = strong
+consistency. In this equation, R, W, and RF are the read replica count, the write replica
+count, and the replication factor, respectively; all client reads will see the most recent
+write in this scenario, and you will have strong consistency. As we discuss in more
+detail in Chapter 9, the recommended way to achieve strong consistency in Cassandra
+is to write and read using the QUORUM or LOCAL_QUORUM consistency levels.
+
+
+Coordinator
+For a write, the coordinator node contacts all replicas, as determined by the consistency
+level and replication factor, and considers the write successful when a number
+of replicas commensurate with the consistency level acknowledge the write.
+For a read, the coordinator contacts enough replicas to ensure the required consistency
+level is met, and returns the data to the client.
+
+
+Hinted Handoff
+Consider the following scenario: a write request is sent to Cassandra, but a replica
+node where the write properly belongs is not available due to network partition,
+hardware failure, or some other reason. In order to ensure general availability of the
+ring in such a situation, Cassandra implements a feature called hinted handoff. You
+might think of a hint as a little Post-it Note that contains the information from the
+write request. If the replica node where the write belongs has failed, the coordinator
+will create a hint, which is a small reminder that says, “I have the write information
+that is intended for node B. I’m going to hang on to this write, and I’ll notice when
+node B comes back online; when it does, I’ll send it the write request.” That is, once it
+detects via gossip that node B is back online, node A will “hand off ” to node B the
+“hint” regarding the write. Cassandra holds a separate hint for each partition that is to
+be written.
+This allows Cassandra to be always available for writes, and generally enables a cluster
+to sustain the same write load even when some of the nodes are down. It also
+reduces the time that a failed node will be inconsistent after it does come back online.
+
+Hinted Handoff and Guaranteed Delivery
+Hinted handoff is used in Amazon’s Dynamo, which inspired the
+design of databases, including Cassandra and Amazon’s DynamoDB.
+It is also familiar to those who are aware of the concept of
+guaranteed delivery in messaging systems such as the Java Message
+Service (JMS). In a durable guaranteed-delivery JMS queue, if a
+message cannot be delivered to a receiver, JMS will wait for a given
+interval and then resend the request until the message is received.
+
+There is a practical problem with hinted handoffs (and guaranteed delivery
+approaches, for that matter): if a node is offline for some time, the hints can build up
+considerably on other nodes. Then, when the other nodes notice that the failed node
+has come back online, they tend to flood that node with requests, just at the moment
+it is most vulnerable (when it is struggling to come back into play after a failure). To
+address this problem, Cassandra limits the storage of hints to a configurable time
+window. It is also possible to disable hinted handoff entirely.
+
+
+
+Lightweight Transactions
+Cassandra’s lightweight transactions are limited to a single partition. Internally, Cassandra
+stores a Paxos state for each partition. This ensures that transactions on different
+partitions cannot interfere with each other.
+
+
+
+What Are Durable Writes?
+Now that we’ve introduced the concept of the commit log, it’s a
+good time for us to demystify a property of a keyspace that we first
+noticed in Chapter 3:
+cqlsh> DESCRIBE KEYSPACE my_keyspace ;
+CREATE KEYSPACE my_keyspace WITH replication =
+{'class': 'SimpleStrategy',
+'replication_factor': '1'} AND durable_writes =
+true;
+The durable_writes property controls whether Cassandra will use
+the commit log for writes to the tables in the keyspace. This value
+defaults to true, meaning that the commit log will be updated on
+modifications. Setting the value to false increases the speed of
+writes, but also risks losing data if the node goes down before the
+data is flushed from memtables into SSTables.
+
+
+Why Are They Called “SSTables”?
+The term “SSTable” originated in Google Bigtable as a compaction
+of “Sorted String Table.” Cassandra borrows this term even though
+it does not store data as strings on disk.
+Commit log has treshhold of size. And after flushing to SSTable - commit log might be dropped.
+
+
+Delete data
+Tombstones are not kept forever, instead they are removed as part of compaction.
+There is a setting per table called gc_grace_seconds (Garbage Collection Grace Seconds)
+which represents the amount of time that nodes will wait to garbage collect (or
+compact) tombstones. By default, it’s set to 864,000 seconds, the equivalent of 10 days.
+Cassandra keeps track of tombstone age, and once a tombstone is older than
+gc_grace_seconds, it will be garbage collected. The purpose of this delay is to give a
+node that is unavailable time to recover; if a node is down longer than this value, then
+it should be treated as failed and replaced.
+
+
+
+Cassandra Daemon
+The org.apache.cassandra.service.CassandraDaemon interface represents the life
+cycle of the Cassandra service running on a single node. It includes the typical life
+cycle operations that you might expect: start, stop, activate, deactivate, and
+destroy.
+You can also create an in-memory Cassandra instance programmatically by using the
+class org.apache.cassandra.service.EmbeddedCassandraService. Creating an
+embedded instance can be useful for unit testing programs using Cassandra.

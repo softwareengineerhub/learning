@@ -1,0 +1,87 @@
+1) Создаем папку
+main/docker
+2) В ней создаем Dockerfile
+
+##########################
+FROM openjdk
+
+VOLUME /tmp
+ADD maven/spring-boot-docker-0.0.1-SNAPSHOT.jar myapp.jar
+RUN sh -c 'touch /myapp.jar'
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/myapp.jar"]
+##########################
+
+Где
+openjdk - составлен из Debian
+
+3) Добавить проперти в pom.xml
+<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<docker.image.prefix>denisprokopiuk</docker.image.prefix>
+		<docker.image.name>sbd</docker.image.name>
+</properties>
+
+4)Добавить fabric plugin:
+<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.20.0</version>
+
+				<configuration>
+	<!--				<dockerHost>unix:///var/run/docker.sock</dockerHost> -->
+					<dockerHost>tcp://192.168.99.100:2376</dockerHost>
+<!--
+					<docker.host.url>(e.g.) tcp://192.168.99.100:2376</docker.host.url>
+					<docker.host.certPath>(e.g.) a path</docker.host.certPath>
+-->
+					<verbose>true</verbose>
+					<images>
+						<image>
+							<name>${docker.image.prefix}/${docker.image.name}</name>
+							<build>
+								<dockerFileDir>${project.basedir}/src/main/docker/</dockerFileDir>
+
+								<!--copies artifacts to docker build dir in target-->
+								<assembly>
+									<descriptorRef>artifact</descriptorRef>
+								</assembly>
+
+								<tags>
+									<tag>latest</tag>
+									<tag>${project.version}</tag>
+								</tags>
+							</build>
+						</image>
+					</images>
+				</configuration>
+
+			</plugin>
+		</plugins>
+	</build>
+	
+5) запустить
+mvn clean package docker:build
+
+6) В результате создастся 2 image:
+docker images
+denisprokopiuk/sbd            0.0.1-SNAPSHOT      fdcf4adb379b        6 seconds ago       532MB
+denisprokopiuk/sbd            latest
+
+7) Запускаем контейнер
+docker run -d -p 8080:8080 denisprokopiuk/sbd
+или 
+docker run -d -p 8080:8080 denisprokopiuk/sbd:0.0.1-SNAPSHOT
+
+---------------------------------------------------------------------------------------
+
+
+
+
+	

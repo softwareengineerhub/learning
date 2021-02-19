@@ -1,0 +1,182 @@
+Write Path
+-------------------------------------------------
+Default Consistency Levels
+
+Cassandra clients typically support setting a default consistency level for all queries,
+as well as a specific level for individual queries. For example, in cqlsh you can check
+and set the default consistency level using the CONSISTENCY command:
+cqlsh> CONSISTENCY;
+Current consistency level is ONE.
+cqlsh> CONSISTENCY LOCAL_ONE;
+Consistency level set to LOCAL_ONE.
+
+In the DataStax Java Driver, the default consistency level can be set through the configuration option:
+basic.request.consistency = QUORUM
+If you do not configure this, it will be set to LOCAL_ONE. The default consistency level
+can be overridden on an individual statement:
+Statement statement = ...
+statement.setConsistencyLevel(ConsistencyLevel.LOCAL_QUORUM);
+
+---------------------------------------------------
+Consistency Level of ANY:
+The coordinator waits for the replicas to respond. Once a sufficient number of replicas
+have responded to satisfy the consistency level, the coordinator acknowledges the
+write to the client. If a replica doesn’t respond within the timeout, it is presumed to be
+down, and a hint is stored for the write. A hint does not count as a successful replica
+write unless the consistency level ANY is used.
+
+Commit log files
+Cassandra writes commit logs to the filesystem as binary files. By default, the commit
+log files are found under the $CASSANDRA_HOME/data/commitlog directory.
+Commit log files are named according to the pattern CommitLog-<version><timestamp>.
+log
+
+SSTable files
+When SSTables are written to the filesystem during a flush, there are actually several
+files that are written per SSTable. Let’s take a look at the default location under the
+$CASSANDRA_HOME/data/data directory to see how the files are organized on
+disk
+
+-------------------------------------------------
+Lightweight transactions
+
+SimpleStatement reservationInsert = SimpleStatement.builder(
+"INSERT INTO reservations_by_confirmation (confirm_number, hotel_id,
+start_date, end_date, room_number, guest_id) VALUES (?, ?, ?, ?, ?, ?)")
+.addPositionalValue("RS2G0Z")
+.addPositionalValue("NY456")
+.addPositionalValue("2020-06-08")
+.addPositionalValue("2020-06-10")
+.addPositionalValue(111)
+.addPositionalValue("1b4d86f4-ccff-4256-a63d-45c905df2677")
+.ifNotExists()
+.build();
+ResultSet reservationInsertResult = session.execute(reservationInsert);
+boolean wasApplied = reservationInsertResult.wasApplied();
+if (wasApplied) {
+Row row = reservationInsertResult.one();
+row.getBool("applied");
+}SimpleStatement reservationInsert = SimpleStatement.builder(
+"INSERT INTO reservations_by_confirmation (confirm_number, hotel_id,
+start_date, end_date, room_number, guest_id) VALUES (?, ?, ?, ?, ?, ?)")
+.addPositionalValue("RS2G0Z")
+.addPositionalValue("NY456")
+.addPositionalValue("2020-06-08")
+.addPositionalValue("2020-06-10")
+.addPositionalValue(111)
+.addPositionalValue("1b4d86f4-ccff-4256-a63d-45c905df2677")
+.ifNotExists()
+.build();
+ResultSet reservationInsertResult = session.execute(reservationInsert);
+boolean wasApplied = reservationInsertResult.wasApplied();
+if (wasApplied) {
+Row row = reservationInsertResult.one();
+row.getBool("applied");
+}
+
+
+Batches
+While lightweight transactions are limited to a single partition, Cassandra provides a
+batch mechanism that allows you to group multiple modifications into a single statement,
+whether they address the same partition or different partitions.
+The semantics of the batch operation are as follows:
+• Only modification statements (INSERT, UPDATE, or DELETE) may be included in a
+batch.
+• Batches may be logged or unlogged, where logged batches have more safeguards.
+We’ll explain this in more detail below.
+• Batches are not a transaction mechanism, but you can include lightweight transaction
+statements in a batch. Multiple lightweight transactions in a batch must
+apply to the same partition.
+• Counter modifications are only allowed within a special form of batch known as
+a counter batch. A counter batch can only contain counter modifications.
+
+
+----------------------------------------------------------
+Read 
+
+Notice that the implication of consistency level ONE is that the first node
+to respond to the read operation is the value that the client will get—even if it is out
+of date. The read repair operation is performed after the record is returned, so any
+subsequent reads will all have a consistent value, regardless of the responding node
+
+Reads and Writes
+For example, using QUORUM for writes and ONE for reads doesn’t guarantee strong
+consistency, as 2 + 1 is merely equal to 3
+
+
+Read Repair
+If the coordinator is not itself a replica, the coordinator then sends a read request to
+the fastest replica, as determined by the dynamic snitch. The coordinator node also
+sends a digest request to the other replicas. A digest request is similar to a standard
+read request, except the replicas return a digest, or hash, of the requested data.
+The coordinator calculates the digest hash for data returned from the fastest replica
+and compares it to the digests returned from the other replicas. If the digests are consistent,
+and the desired consistency level has been met, then the data from the fastest
+replica can be returned. If the digests are not consistent, then the coordinator must
+perform a read repair, as discussed in the following section
+
+
+The read repair may be performed either before or after the return to the client. If
+you are using one of the two stronger consistency levels (QUORUM or ALL), then the
+read repair happens before data is returned to the client. If the client specifies a weak
+consistency level (such as ONE), then the read repair is optionally performed in the
+background after returning to the client
+
+---------------------------------------------
+Paging
+SELECT * FROM reservation.reservations_by_hotel_date LIMIT 10;
+
+
+cqlsh> PAGING;
+Query paging is currently enabled. Use PAGING OFF to disable
+Page size: 100
+cqlsh> PAGING 1000;
+Page size: 1000
+cqlsh> PAGING OFF;
+Disabled Query paging.
+cqlsh> PAGING ON;
+Now Query paging is enabled
+
+
+Statement statement = SimpleStatement.builder("...").build();
+statement.setPageSize(2000);
+
+---------------------------------------------------
+
+Deletes
+
+If Cassandra had a traditional design for deletes, any nodes that were
+down at the time of a delete would not receive the delete. Once one of these nodes
+came back online, it would mistakenly think that all of the nodes that had received
+the delete had actually missed a write (the data that it still has because it missed the
+delete), and it would start repairing all of the other nodes. So Cassandra needs a more
+sophisticated mechanism to support deletes. That mechanism is called a tombstone
+
+
+A tombstone is a special marker issued in a delete, acting as a placeholder. If any replica
+did not receive the delete operation, the tombstone can later be propagated to
+those replicas when they are available again
+
+Each node keeps
+track of the age of all its tombstones. Once they reach the age configured in
+gc_grace_seconds (which is 10 days by default), then a compaction is run, the tombstones
+are garbage collected, and the corresponding disk space is recovered.
+
+Because of how Cassandra tracks deletions, each of these operations will result in a
+single tombstone. The more data you are able to delete in a single command, the
+fewer tombstones you will have
+
+Recomendations:
+1) Avoid writing NULL values into your tables, as these are interpreted as deletes.
+This can happen in cases where an unset attribute on a user interface or API is
+interpreted as a NULL value as it moves down through your application stack.
+
+2) Delete data at the largest granularity you can, ideally entire partitions at once.
+This will minimize the number of tombstones you create
+
+3) Exercise care when updating collections. If possible, avoid replacing the entire
+contents of a list, set, or map, as this will generate tombstones for all of the previous
+content. Instead, update only the elements you need to modify.
+
+4) Use Cassandra’s time-to-live (TTL) feature when inserting data, which allows
+Cassandra to expire data automatically on your behalf

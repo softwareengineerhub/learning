@@ -1,0 +1,73 @@
+
+Another view on Kafka—and one of our motivating lenses in designing and building
+it—was to think of it as a kind of real-time version of Hadoop.
+
+
+Apache Kafka is a publish/subscribe messaging system designed to solve this problem.
+It is often described as a “distributed commit log” or more recently as a “distributing
+streaming platform.”
+
+
+The unit of data within Kafka is called a message
+A message
+is simply an array of bytes as far as Kafka is concerned, so the data contained within it
+does not have a specific format or meaning to Kafka.
+A message can have an optional
+bit of metadata, which is referred to as a key. The key is also a byte array and, as with
+the message, has no specific meaning to Kafka. Keys are used when messages are to
+be written to partitions in a more controlled manner.
+The simplest such scheme is to
+generate a consistent hash of the key, and then select the partition number for that
+message by taking the result of the hash modulo, the total number of partitions in the
+topic. This assures that messages with the same key are always written to the same
+partition.
+
+For efficiency, messages are written into Kafka in batches. A batch is just a collection
+of messages, all of which are being produced to the same topic and partition. An individual
+roundtrip across the network for each message would result in excessive overhead,
+and collecting messages together into a batch reduces this. Of course, this is a
+tradeoff between latency and throughput: the larger the batches, the more messages
+that can be handled per unit of time, but the longer it takes an individual message to
+propagate. Batches are also typically compressed, providing more efficient data transfer
+and storage at the cost of some processing power.
+
+
+
+Going back to the “commit log” description, a partition is a single
+log. Messages are written to it in an append-only fashion, and are read in order
+from beginning to end.
+
+
+single topic can be scaled horizontally across multiple servers to provide performance
+far beyond the ability of a single server.
+
+p30.- image (consumer, consumer groups)
+
+A single Kafka server is called a broker. The broker receives messages from producers,
+assigns offsets to them, and commits the messages to storage on disk. It also services
+consumers, responding to fetch requests for partitions and responding with the messages
+that have been committed to disk. Depending on the specific hardware and its
+performance characteristics, a single broker can easily handle thousands of partitions
+and millions of messages per second.
+
+
+Kafka brokers are designed to operate as part of a cluster. Within a cluster of brokers,
+one broker will also function as the cluster controller (elected automatically from the
+live members of the cluster)
+
+Kafka brokers are configured with a default retention
+setting for topics, either retaining messages for some period of time (e.g., 7 days)
+or until the topic reaches a certain size in bytes (e.g., 1 GB)
+-------------------------------------------------------------------
+
+publish/subscribe messaging system that had an interface typical of
+messaging systems but a storage layer more like a log-aggregation system. Combined
+with the adoption of Apache Avro for message serialization, Kafka was effective for
+handling both metrics and user-activity tracking at a scale of billions of messages per
+day
+
+Kafka name
+thought that since Kafka was a system optimized for writing, using a writer’s name
+would make sense. I had taken a lot of lit classes in college and liked Franz Kafka. Plus
+the name sounded cool for an open source project.
+So basically there is not much of a relationship.

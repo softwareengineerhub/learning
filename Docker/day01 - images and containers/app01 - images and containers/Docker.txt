@@ -1,0 +1,149 @@
+1) docker login
+put dockerhub login
+put dockerhub password
+
+password is stored in user/.docker/config.json
+
+2) docker run hello-world-nginx
+Go to Kinematic->Settings and find port mapping
+Go to http://192.168.99.100:32768/
+
+3) mongo
+docker run mongo
+
+We run interaction session -> close the window container will be stopped
+
+So we call docker stop <container_name>
+docekr start <container_name>
+
+or 
+docker run -d mongo
+
+docker ps -a
+docker stop containerid
+
+docker run -p 27017:27017 -d mongo
+
+Run to check:
+docker ps 
+
+Check logs:
+docker logs -f 5f0759e528eb 
+
+Run application
+http://localhost:8080/product/list
+
+4) Run not the latest mongo
+docker pull mongo:3.6.18-xenial
+
+docker run -p 27017:27017 -d mongo:3.6.18-xenial
+docker run -p 27017:27017 -d mongo
+
+5) Example:
+docker pull mongo:4.0.4
+
+Shows all images we have
+docker images
+
+Start mongo with special name
+$ docker run --name mongodb mongo:4.0.4
+
+Run image mongo:4.0.4 with a special port range
+$ docker run -d -p 27017-27019:27017-27019 --name mongodb mongo:4.0.4   
+
+Access container :
+$ docker exec -it mongodb bash
+
+Start mongo shell
+mongo
+show dbs
+
+use test
+db.product.count();
+
+
+6) Images:
+Image consist of levels
+levels are represented by 1 or more files
+
+docker image inspect mongo
+docker image inspect mongo:4.0.4
+
+docker images
+
+
+7) docker start <container_name>
+runs stopped container (no need additional configuration)
+
+Data is still presented in collection
+
+So this is persistence storage
+
+
+8) Add volumes
+docker run -p 27017:27017 -v D:\Docker -d mongo
+
+9) find ip of container
+docker inspect --format '{{ .NetworkSettings.IPAddress }}' 9f2a7b0864c9
+docker inspect <container id>
+
+
+10) Rabbitmq
+docker run -p 15672:15672 -d rabbitmq 
+
+docker run -d --hostname guru-rabbit --name some-rabbit -p 8080:15672 -p 5671:5671 -p 5672:5672 rabbitmq:3-management
+http://192.168.99.100:8080/
+guest
+guest
+
+11) MySql
+docker pull mysql
+
+We need to set uo env varibles
+like:
+ MYSQL_ROOT_PASSWORD, MYSQL_ALLOW_EMPTY_PASSWORD and MYSQL_RANDOM_ROOT_PASSWORD
+ 
+ for port exposing in docekr:
+ EXPOSE 3306
+ 
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!! expose vs ports:
+ Ports are not exposed to host machines, only exposed to other services.
+ 
+ 
+set up empty password:
+docker run -d --name denis-mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -v /d/Docker/mysql -p 3306:3306 mysql
+
+After stop or kill you can start this container again only by name all settings will servive:
+docker start denis-mysql
+
+docker run -d --name withpassword-mysql -e MYSQL_ROOT_PASSWORD=1 -v /d/Docker/mysql -p 3306:3306 mysql
+
+
+
+Create Mongo Cluster:
+1) docker network create mongo-cluster
+2) docker run -v ~/mongo/:/data/db --name mongo -p 27017:27017 -d mongo mongod --smallfiles --replSet rs0
+
+-v ~/mongo/ дает /c/Users/asusadmin/mongo
+
+
+
+House keeping:
+1) kill all running Docker Containers
+docker kill $(docker ps -q)
+
+2) Delete all Stopped Docker Containers
+docker rm $(docker ps -a -q)
+
+3) Delete All Images
+docker rmi $(docker images -q)
+
+4) Clean up volumes
+
+Once a voulme is no longer associated with container, it is
+considered "dangling".
+
+Remove all dangling volumes:
+docker volum rm $(docker volume ls -f dangling=true -q)
+
+But it does not remove files from host system in shared volumes

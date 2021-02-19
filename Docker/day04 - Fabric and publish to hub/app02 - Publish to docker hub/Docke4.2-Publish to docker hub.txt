@@ -1,0 +1,32 @@
+
+1) In Idea
+pom.xml -> right click -> maven -> Open settings.xml
+
+
+<servers>
+    <server>
+        <id>docker.io</id>
+        <username>denisprokopiuk</username>
+        <password>mypassword</password>
+    </server>
+</servers>
+
+
+2) Publish to dockerhub
+mvn clean package docker:build docker:push
+
+
+3) Check:
+https://hub.docker.com/repository/docker/denisprokopiuk/sbd/tags?page=1&ordering=last_updated
+docker pull denisprokopiuk/sbd:latest
+
+
+4) Update version of app in pom.xml:
+<version>0.0.2-SNAPSHOT</version>
+try to build:
+mvn clean package docker:build docker:push
+
+exception is throwing.
+
+We also need to update Dockerfile:
+ADD maven/spring-boot-docker-0.0.2-SNAPSHOT.jar myapp.jar

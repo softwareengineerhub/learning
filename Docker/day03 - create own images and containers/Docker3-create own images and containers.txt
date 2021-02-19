@@ -1,0 +1,65 @@
+To create image from terminal go to same folder where Dockerfile is located:
+docker build -t my-tag .
+
+-t - что бы задать имя тега
+
+
+1) Запускаем SpringBoot:
+- создаем Dockerfile в приложении на уровне target
+- выполяем clean install
+- Добавляем в Dockerfile:
+###############################
+FROM centos
+
+RUN yum install -y java
+
+EXPOSE 8080
+
+VOLUME /tmp
+ADD target/my-boot-docker-sample.jar myapp.jar
+RUN sh -c 'touch /myapp.jar'
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/myapp.jar"]
+###############################
+
+- создаем image; из терминала в директории, где находится Dockerfile запускаем
+###############################
+docker build -t mytest .
+###############################
+
+- проверяем что такой image создался
+docker images
+
+- запускаем контейнер из image:
+###############################
+docker run -d -p 8080:8080 mytest
+###############################
+
+- Проверяем через браузер:
+http://192.168.99.100:8080/info
+
+2) Запускаем my-simple-soap
+Шаги аналогичны 1)
+
+Важно в коде:
+Endpoint.publish("http://0.0.0.0:8081/calc", new SimpleCalculator());
+
+################################################
+FROM centos
+
+RUN yum install -y java
+
+EXPOSE 8081
+
+VOLUME /tmpsoap
+ADD target/my-simple-soap.jar myapp.jar
+RUN sh -c 'touch /myapp.jar'
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/myapp.jar"]
+################################################
+
+- запускаем контейнер
+################################################
+docker run -d -p 8081:8081 my-simple-soap 
+################################################
+
+- проверяем
+http://192.168.99.100:8081/calc?wsdl

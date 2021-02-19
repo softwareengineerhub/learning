@@ -1,0 +1,85 @@
+
+1) В директории docker создаем фаил DockerfileTemplate
+Копируем в него все, что было в Dockerfile
+
+########################################################
+FROM openjdk
+
+VOLUME /tmp
+ADD maven/spring-boot-docker-0.0.2-SNAPSHOT.jar myapp.jar
+RUN sh -c 'touch /myapp.jar'
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/myapp.jar"]
+########################################################
+
+
+
+2) Меняем его содержимое
+########################################################
+FROM openjdk
+
+VOLUME /tmp
+ADD maven/{fileName}.jar {fileName}.jar
+RUN sh -c 'touch /myapp.jar'
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/${fileName}.jar"]
+########################################################
+
+3) Создать директорию 
+main/scripts
+
+4) В ней создать фаил BuildDockerfile.groovy
+
+В нем написать код
+
+########################################################
+String template  = new File("${project.basedir}/src/main/docker/DockerfileTemplate".toString()).getText()
+
+def dockerFileText = new groovy.text.SimpleTemplateEngine().createTemplate(template)
+    .make([fileName: project.build.finalName])
+
+println "writting dir " + "${project.basedir}/target/dockerfile"
+new File("${project.basedir}/target/dockerfile/".toString()).mkdirs()
+
+println "writting file"
+File dockerFile = new File("${project.basedir}/target/dockerfile/Dockerfile".toString())
+
+dockerFile.withWriter ('UTF-8'){
+    writer -> writer.write(dockerFileText)
+}
+########################################################
+
+
+5) Добавляем плагин в pom.xml
+
+<plugin>
+				<groupId>org.codehaus.gmavenplus</groupId>
+				<artifactId>gmavenplus-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<scripts>
+						<script>file:///${project.basedir}/src/main/scripts/BuildDockerfile.groovy</script>
+					</scripts>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.groovy</groupId>
+						<artifactId>groovy-all</artifactId>
+						<version>2.4.8</version>
+					</dependency>
+				</dependencies>
+
+			</plugin>
+
+6) В pom.xml нужно поменять путь к докерфайлу
+<dockerFileDir>${project.basedir}/target/dockerfile/</dockerFileDir>
+
+6) СОберем проект 
+mvn clean package docker:build
+

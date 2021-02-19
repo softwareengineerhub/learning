@@ -1,0 +1,70 @@
+data
+This directory is where Cassandra stores its data. By default, there are subdirectories
+under the data directory, corresponding to the various datafiles Cassandra
+uses: commitlog, data, hints, and saved_caches. We’ll explore the
+significance of each of these datafiles in Chapter 6. If you’ve been trying different
+versions of the database and aren’t worried about losing data, you can delete
+these directories and restart the server as a last resort.
+
+logs
+This directory is where Cassandra stores its logs in a file called system.log. If you
+encounter any difficulties, consult the log to see what might have happened.
+
+
+The datafile locations are configurable in the cassandra.yaml file,
+located in the conf directory. The properties are called
+data_file_directories, commit_log_directory, hints_direc
+tory, and saved_caches_directory
+
+
+
+run the command cassandra -f to start your server.
+Using the -f switch tells Cassandra to stay in the foreground
+instead of running as a background process, so that all of the server
+logs will print to standard out (stdout in Unix systems) and you
+can see them in your terminal window, which is useful for testing.
+In either case, the logs will append to the system.log file.
+
+./start-server
+./stop-server
+
+or
+start-server.bat
+stop-server.bat
+
+to stop Casssandra you need to kill jvm
+
+
+CQLSH
+to start:
+
+./cqlsh
+./cqlsh localhost 9042
+or 
+cqlsh.bat 
+(python is required)
+
+
+cqlsh> help;
+cqlsh> DESCRIBE CLUSTER;
+cqlsh> DESCRIBE KEYSPACES;
+cqlsh> SHOW VERSION;
+cqlsh:my_keyspace> DESCRIBE TABLE user;
+
+SELECT * FROM user where first_name = 'Bill';
+If you want to execute this query despite the
+performance unpredictability, use ALLOW FILTERING"
+
+cqlsh:my_keyspace> TRUNCATE user;
+cqlsh:my_keyspace> DROP TABLE user;
+
+
+
+DOCKER:
+$docker pull cassandra
+$docker run --name my-cassandra cassandra
+$docker start cassandra -p 9042:9042
+cqlsh
+$docker exec -it my-cassandra cqlsh
+
+

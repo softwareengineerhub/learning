@@ -1,0 +1,35 @@
+Spring Boot in centos
+
+1) Run 
+docker run -d centos
+ничего не видно
+docker ps -a
+
+docker logs 2837f0c3e868666d6f23075857e29a84c3b2185d073de45f3952655fd8247280
+
+Problem is:
+centos image does not have a command
+Containers run until the last command is completed
+
+docker run -d centos tail -f /dev/null
+
+docker exec -it f43255be3952 bash
+where f43255be3952 is a name of container
+
+java -version
+
+no java installed, so we need to install it
+yum install java
+java -version
+
+
+2) Deploy jar
+Create Docker file
+and from same folder
+docker build -t spring-boot-docker .
+
+Флаг -i — это сокращение для --interactive. Благодаря этому флагу поток STDIN поддерживается в открытом состоянии даже если контейнер к STDIN не подключён.
+
+Флаг -t — это сокращение для --tty. Благодаря этому флагу выделяется псевдотерминал, который соединяет используемый терминал с потоками STDIN и STDOUT контейнера.
+
+Для того чтобы получить возможность взаимодействия с контейнером через терминал нужно совместно использовать флаги -i и -t.

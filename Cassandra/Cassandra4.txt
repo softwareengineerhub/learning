@@ -1,0 +1,140 @@
+Cassandra uses a special type of primary key called a composite key (or compound
+key) to represent groups of related rows, also called partitions. The composite key
+consists of a partition key, plus an optional set of clustering columns. The partition key
+is used to determine the nodes on which rows are stored and can itself consist of multiple
+columns. The clustering columns are used to control how data is sorted for storage
+within a partition. Cassandra also supports an additional construct called a static
+column, which is for storing data that is not part of the primary key but is shared by
+every row in a partition.
+
+
+Putting these concepts all together, we have the basic Cassandra data structures:
+• The column, which is a name/value pair
+• The row, which is a container for columns referenced by a primary key
+• The partition, which is a group of related rows that are stored together on the
+same nodes
+• The table, which is a container for rows organized by partitions
+• The keyspace, which is a container for tables
+• The cluster, which is a container for keyspaces that spans one or more nodes
+
+
+
+While you do need to provide a value for each primary key column when you add a
+new row to the table, you are not required to provide values for nonprimary key columns.
+To illustrate this, let’s insert another row with no title:
+cqlsh:my_keyspace> INSERT INTO user (first_name, last_name)
+... VALUES ('Mary', 'Rodriguez');
+cqlsh:my_keyspace> SELECT * FROM user WHERE last_name='Rodriguez';
+last_name | first_name | title
+-----------+------------+-------
+Rodriguez | Mary | null
+(1 rows)
+Since you have not set a value for title, the value returned is null.
+
+
+
+
+Update table:
+cqlsh:my_keyspace> ALTER TABLE user ADD middle_initial text;
+cqlsh:my_keyspace> DESCRIBE TABLE user;
+
+
+
+UPSERT
+Insert, Update, and Upsert
+Because Cassandra uses an append model, there is no fundamental
+difference between the insert and update operations. If you insert a
+row that has the same primary key as an existing row, the row is
+replaced. If you update a row and the primary key does not exist,
+Cassandra creates it.
+For this reason, it is often said that Cassandra supports upsert,
+meaning that inserts and updates are treated the same, with one
+minor exception which we’ll discuss in “Lightweight Transactions”
+
+
+Timestamps
+Each time you write data into Cassandra, a timestamp, in microseconds, is generated
+for each column value that is inserted or updated. Internally, Cassandra uses these
+timestamps for resolving any conflicting changes that are made to the same value, in
+what is frequently referred to as a last write wins approach.
+
+
+TTL
+Might be applied to filed or to row:
+
+Time to live (TTL)
+One very powerful feature that Cassandra provides is the ability to expire data that is
+no longer needed. This expiration is very flexible and works at the level of individual
+column values. The time to live (or TTL) is a value that Cassandra stores for each
+column value to indicate how long to keep the value.
+The TTL value defaults to null, meaning that data that is written will not expire. Let’s
+show this by adding the TTL() function to a SELECT command in cqlsh to see the
+TTL value for Mary’s title:
+cqlsh:my_keyspace> SELECT first_name, last_name, TTL(title)
+FROM user WHERE first_name = 'Mary' AND last_name = 'Rodriguez';
+first_name | last_name | ttl(title)
+------------+-----------+------------
+Mary | Rodriguez | null
+(1 rows)
+
+Now let’s set the TTL on the last name column to an hour (3,600 seconds) by adding
+the USING TTL option to your UPDATE command:
+cqlsh:my_keyspace> UPDATE user USING TTL 3600 SET middle_initial =
+'Z' WHERE first_name = 'Mary' AND last_name = 'Rodriguez';
+cqlsh:my_keyspace> SELECT first_name, middle_initial,
+last_name, TTL(middle_initial)
+FROM user WHERE first_name = 'Mary' AND last_name = 'Rodriguez';
+first_name | middle_initial | last_name | ttl(middle_initial)
+------------+----------------+-----------+---------------------
+Mary | Z | Rodriguez | 3574
+(1 rows)
+As you can see, the clock is already counting down your TTL, reflecting the several
+seconds it took to type the second command. If you run this command again in an
+hour, Mary’s middle_initial will be shown as null. You can also set TTL on
+INSERTS using the same USING TTL option, in which case the entire row will expire.
+You can try inserting a row using TTL of 60 seconds and check that the row is initially
+there:
+cqlsh:my_keyspace> INSERT INTO user (first_name, last_name)
+VALUES ('Jeff', 'Carpenter') USING TTL 60;
+cqlsh:my_keyspace> SELECT * FROM user WHERE first_name='Jeff' AND
+last_name='Carpenter';
+last_name | first_name | middle_initial | title
+-----------+------------+----------------+-------
+Carpenter | Jeff | null | null
+
+(1 rows)
+After you wait a minute, the row is no longer there:
+cqlsh:my_keyspace> SELECT * FROM user WHERE first_name='Jeff' AND
+last_name='Carpenter';
+last_name | first_name | middle_initial | title
+-----------+------------+----------------+-------
+(0 rows)
+
+
+
+
+
+Primary Keys Are Forever
+After you create a table, there is no way to modify the primary key,
+because this controls how data is distributed within the cluster, and
+even more importantly, how it is stored on disk.
+
+
+
+COUNTER
+The counter data type provides a 64-bit signed integer, whose value cannot be set
+directly, but only incremented or decremented. Cassandra is one of the few databases
+that provides race-free increments across data centers. Counters are frequently
+used for tracking statistics such as numbers of page views, tweets, log
+messages, and so on. The counter type has some special restrictions. It cannot be
+used as part of a primary key. If a counter is used, all of the columns other than
+primary key columns must be counters.
+There is no operation to reset a counter directly, but you can approximate a reset by
+reading the counter value and decrementing by that value. Unfortunately, this is not
+guaranteed to work perfectly, as the counter may have been changed elsewhere in
+between reading and writing
+
+
+
+TUPLE
+can replace user types

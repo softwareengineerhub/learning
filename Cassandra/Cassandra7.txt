@@ -1,0 +1,59 @@
+Materialized Views
+Materialized views were introduced to help address some of the shortcomings of secondary
+indexes discussed above. Creating indexes on columns with high cardinality
+tends to result in poor performance, because most or all of the nodes in the ring are
+queried.
+Materialized views address this problem by storing preconfigured views that support
+queries. Each materialized view supports queries based on a single column which is
+not part of the original primary key. Materialized views simplify application development:
+instead of the application having to keep multiple denormalized tables in sync,
+Cassandra takes on the responsibility of updating views in order to keep them consistent
+with the base table.
+
+CREATE MATERIALIZED VIEW reservation.reservations_by_confirmation
+AS SELECT *
+FROM reservation.reservations_by_hotel_date
+WHERE confirm_number IS NOT NULL and hotel_id IS NOT NULL and
+start_date IS NOT NULL and room_number IS NOT NULL
+PRIMARY KEY (confirm_number, hotel_id, start_date, room_number);
+
+
+you cannot create a materialized view with multiple nonprimary key columns from
+the base table
+
+
+
+
+
+SASI: A New Secondary Index Implementation
+The Cassandra 3.4 release introduced an experimental, alternative implementation of
+secondary indexes known as the SSTable Attached Secondary Index (SASI). SASI was
+developed by Apple and released as an open source implementation of Cassandra’s
+secondary index API. As the name implies, SASI indexes are calculated and stored as
+part of each SSTable file, differing from the original Cassandra implementation,
+which stores indexes in separate, “hidden” tables.
+The SASI implementation exists alongside traditional secondary indexes, and you can
+create a SASI index with the CQL CREATE CUSTOM INDEX command:
+cqlsh:my_keyspace> CREATE CUSTOM INDEX hotel_name_sasi_idx
+ON hotels (name)
+USING 'org.apache.cassandra.index.sasi.SASIIndex'
+WITH OPTIONS= {'mode': 'CONTAINS'};
+
+SASI indexes do offer functionality beyond the traditional secondary index implementation,
+such as the ability to do inequality (greater than or less than) searches on
+indexed columns. You can also use the CQL LIKE keyword to do text searches against
+indexed columns. For example, you could use the following query to find hotels
+whose name contains the substring “world” (case insensitive):
+cqlsh:hotel> SELECT id, name FROM hotels
+WHERE name LIKE '%world%';
+id | name
+-------+---------------------------------
+AZ123 | Super Hotel Suites at WestWorld
+(1 rows)
+While SASI indexes do perform better than traditional indexes by eliminating the
+need to read from additional tables, they still require reads from a greater number of
+nodes than a denormalized design.
+
+
+Java Driver
+https://github.com/jeffreyscarpenter/reservation-service.

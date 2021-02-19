@@ -1,0 +1,27 @@
+key serializer:
+
+key.serializer
+Kafka brokers expect byte arrays as keys and values of messages
+org.apache.kafka.common.serialization.Serializer interface
+ByteArraySerializer (which doesn’t do much),
+StringSerializer, and IntegerSerializer.
+Setting key.serializer is
+required even if you intend to send only values
+
+value.serializer
+-||- as key
+
+bootstrap.servers
+List of host:port pairs of brokers that the producer will use to establish initial
+connection to the Kafka cluster. This list doesn’t need to include all brokers, since
+the producer will get more information after the initial connection. But it is recommended
+to include at least two, so in case one broker goes down, the producer
+will still be able to connect to the cluster.
+
+KafkaProducer has two types of errors. Retriable errors are those that can be resolved
+by sending the message again.
+
+
+
+
+p.52

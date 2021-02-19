@@ -1,0 +1,278 @@
+Cassandra Driver
+CQL is case-sensitive by default
+
+<dependency>
+<groupId>com.datastax.oss</groupId>
+<artifactId>java-driver-core</artifactId>
+<version>${driver.version}</version>
+</dependency>
+
+-------------------------------------------
+CqlSession cqlSession = CqlSession.builder()
+.addContactPoint(new InetSocketAddress("127.0.0.1", 9042))
+.build()
+
+
+CqlSession cqlSession = CqlSession.builder().build()
+
+CqlSession cqlSession = CqlSession.builder()
+.addContactPoint(new InetSocketAddress("<some IP address>", 9042))
+.addContactPoint(new InetSocketAddress("<another IP address>", 9042))
+.withLocalDatacenter("<data center name>")
+.build()
+
+
+CqlSession cqlSession = CqlSession.builder()
+.addContactPoint(new InetSocketAddress("<some IP address>", 9042))
+.addContactPoint(new InetSocketAddress("<another IP address>", 9042))
+.withKeyspace("reservation")
+.build()
+
+-------------------------------------------
+
+
+Elimination of the Cluster Object
+Previous versions of DataStax drivers supported the concept of a
+Cluster object used to create Session objects. Recent driver versions
+(for example, the 4.0 Java driver and later) have combined
+Cluster and Session into CqlSession.
+
+
+In the terminology of the driver, the nodes you explicitly identify when creating a
+CqlSession are known as contact points. Contact points are similar to the concept of
+seed nodes that a Cassandra node uses to connect to other nodes in the same cluster.
+
+
+This action will throw a NoHostAvaila
+bleException if none of the contact points is available, or an AuthenticationExcep
+tion if authentication fails
+
+If you do not specify a keyspace name when creating the CqlSession, you’ll have to
+qualify every table reference in your queries with the appropriate keyspace name
+
+
+Each CqlSession manages connections to a Cassandra cluster, which are used to execute
+queries and control operations using the Cassandra native protocol. The CqlSes
+sion contains a pool of TCP connections for each host.
+Sessions Are Expensive
+Because a CqlSession maintains TCP connections to multiple
+nodes, it is a relatively heavyweight object. In most cases, you’ll
+want to create a single CqlSession and reuse it throughout your
+application, rather than continually building up and tearing down
+CqlSessions. Another acceptable option is to create a CqlSession
+per keyspace, if your application is accessing multiple keyspaces.
+
+
+---------------------------------------
+Statement
+
+Statement is an interface with
+several implementations, including SimpleStatement, BoundStatement, and Batch
+Statement.
+
+cqlSession.execute("SELECT * from reservation.reservations_by_confirmation");
+
+SimpleStatement reservationInsert = SimpleStatement.builder(
+"INSERT INTO reservations_by_confirmation (confirmation_number, hotel_id,
+start_date, end_date, room_number, guest_id) VALUES (?, ?, ?, ?, ?, ?)")
+.addPositionalValue("RS2G0Z")
+.addPositionalValue("NY456")
+.addPositionalValue("2020-06-08")
+.addPositionalValue("2020-06-10")
+.addPositionalValue(111)
+.addPositionalValue("1b4d86f4-ccff-4256-a63d-45c905df2677")
+.build();
+cqlSession.execute(reservationInsert);
+
+
+SimpleStatement reservationSelect = SimpleStatement.builder(
+"SELECT * FROM reservations_by_confirmation WHERE confirmation_number=?")
+.addPositionalValue("RS2G0Z")
+.build();
+
+ResultSet reservationSelectResult = cqlSession.execute(reservationSelect);
+
+
+//ResultSet.iterator()
+for (Row row : reservationSelectResult) {
+System.out.format("confirmation_number: %s, hotel_id: %, start_date: %s,
+end_date %s, room_number: %i, guest_id: %s\n",
+row.getString("confirmation_number"), row.getString("hotel_id"),
+row.getLocalDate("start_date"), row.getLocalDate("end_date"),
+row.getInt("room_number"), row.getUuid("guest_id"));
+}
+--------------------------------------------------------
+
+PreparedStatement
+
+You can think of a PreparedStatement as a template for creating queries
+
+The PreparedStatement is
+designed to handle these queries more efficiently. The structure of the statement is
+sent to nodes a single time for preparation, and a handle for the statement is
+returned. To use the prepared statement, only the handle and the parameters need to
+be sent.
+
+
+PreparedStatement reservationInsertPrepared = cqlSession.prepare(
+"INSERT INTO reservations_by_confirmation (confirmation_number, hotel_id,
+start_date, end_date, room_number, guest_id) VALUES (?, ?, ?, ?, ?, ?)");
+
+PreparedStatement reservationSelectPrepared = cqlSession.prepare(
+"SELECT * FROM reservations_by_confirmation WHERE confirmation_number=?");
+
+
+The driver passes the contents of your PreparedStatement to a Cassandra node
+and gets back a unique identifier for the statement. This unique identifier is referenced
+when you create a BoundStatement. If you’re curious, you can actually see
+this reference by calling PreparedStatement.getId().
+• Once the driver prepares the statement on one node, it proceeds to prepare the
+statement on the other nodes in the cluster. Nodes keep track of prepared statements
+internally. In earlier releases, prepared statements were stored in a cache,
+but beginning with the 3.10 release, each Cassandra node stores prepared statements
+in a local table so that they are present if the node goes down and comes
+back up.
+• The driver also provides the advanced.prepared-statements.reprepare-on-up
+configuration options; this is primarily useful if your cluster is using a release
+prior to Cassandra 3.10. If re-preparation is enabled (the default), the driver will
+re-prepare statements on nodes that have come back up.
+• If the driver tries to execute a PreparedStatement on a node where it has not
+been prepared, the driver automatically prepares the statement, at the cost of an
+additional round trip between the driver and the node.
+
+------------------------------------------------------------------
+BoundStatement reservationInsertBound = reservationInsertPrepared.bind()
+.setString("confirmation_number", "RS2G0Z")
+.setString("hotel_id", "NY456")
+.setLocalDate("start_date", "2020-06-08")
+.setLocalDate("end_date", "2020-06-10")
+.setShort(111)
+.setUuid("1b4d86f4-ccff-4256-a63d-45c905df2677")
+
+If you have failed to bind any of the values, they will be ignored on
+the server side, if protocol v4 (Cassandra 3.0 or later) is in use. The driver behavior
+for older protocol versions is to throw an IllegalStateException if there are any
+unbound values
+
+--------------------------------------------------------------------
+QueryBuilder
+
+<dependency>
+<groupId>com.datastax.oss</groupId>
+<artifactId>java-driver-query-builder</artifactId>
+<version>${driver.version}</version>
+</dependency>
+
+import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.*;
+
+Insert reservationInsert =
+insertInto("reservation", "reservations_by_confirmation")
+.value("confirmation_number", "RS2G0Z")
+.value("hotel_id", "NY456")
+.value("start_date", "2020-06-08")
+.value("end_date", "2020-06-10")
+.value("room_number", 111)
+.value("guest_id", "1b4d86f4-ccff-4256-a63d-45c905df2677");
+SimpleStatement reservationInsertStatement = reservationInsert.build();
+
+
+Select reservationSelect =
+selectFrom("reservation", "reservations_by_confirmation")
+.all()
+.whereColumn("confirmation_number").isEqualTo("RS2G0Z");
+SimpleStatement reseravationSelectStatement = reservationSelect.build();
+
+Select reservationSelect =
+selectFrom("reservation", "reservations_by_confirmation")
+.all()
+.whereColumn("confirmation_number").isEqualTo(bindMarker());
+
+PreparedStatement reservationSelectPrepared =
+cqlSession.prepare(reservationSelect.build());
+// later
+SimpleStatement reservationSelectStatement =
+reservationSelectPrepared.bind("RS2G0Z");
+
+-------------------------------------------------------------------------
+ObjectMapper
+
+<dependency>
+<groupId>com.datastax.oss</groupId>
+<artifactId>java-driver-mapper-processor</artifactId>
+<version>${driver.version}</version>
+</dependency>
+You’ll also add the runtime library as a runtime dependency:
+<dependency>
+<groupId>com.datastax.oss</groupId>
+<artifactId>java-driver-mapper-runtime</artifactId>
+<version>${driver.version}</version>
+</dependency>
+
+
+@Entity
+@NamingStrategy(convention = SNAKE_CASE_INSENSITIVE)
+@PartitionKey
+
+The class is denoted as an
+@Entity, and also as having a @NamingStrategy, which is a way of specifying how the
+mapper should correlate Java identifiers to CQL. For example, you can specify a
+SNAKE_CASE_INSENSITIVE convention as above, which means that the mapper will
+convert Java-style class and member names to lowercase, with underscores separating
+words, which is the recommended CQL naming style. Thus the class name Reserva
+tionsByConfirmation will be mapped to the reservations_by_confirmation table,
+the confirmationNumber member will be mapped to the confirmation_number column,
+and so on.
+
+
+Also you need to create interaface annotated with @Dao and make like JDBI.
+------------------------------------------
+
+Asynch calls:
+
+CompletionStage<AsyncResultSet> resultStage = cqlSession.executeAsync(statement);
+The ListenableFuture interface extends Future,
+and adds an addListener() operation that allows the client to register a callback
+method that is invoked when the Future completes. The callback method is invoked
+in a thread managed by the driver, so it is important that the method complete
+quickly to avoid tying up driver resources. The ResultSetFuture is bound to the
+ResultSet type.
+
+--------------------------------
+Driver File configuration
+it searches the Java classpath for files named
+application.conf, application.json, or application.properties
+
+--------------------------------
+Metadata
+To access the cluster metadata, invoke the CqlSession.getMetadata() method,
+which returns an object implementing the com.data
+stax.oss.driver.api.core.metadata.Metadata interface.
+
+-------------------------
+Metrics
+CqlSession.getMetrics()
+
+-------------------------------------
+Logging
+
+Driver logging
+As you will learn in Chapter 11, Cassandra uses a logging API called Simple Logging
+Facade for Java (SLF4J). The Java driver uses the SLF4J API for logging as well. In
+order to enable logging on your Java client application, you need to provide a compliant
+SLF4J implementation on the classpath, such as Logback (used by the Reservation
+Service) or Log4j. The Java driver provides information at multiple levels; the ERROR,
+WARN, and INFO levels are the most useful to application developers.
+You configure logging by taking advantage of Logback’s configuration mechanism,
+which supports separate configuration for test and production environments. Logback
+inspects the classpath first for the file logback-test.xml representing the test configuration,
+and then if no test configuration is found, it searches for the file
+logback.xml. Here’s an example extract from a logback.xml file configuration file that
+enables the INFO log level for the Java driver:
+<configuration>
+<!-- other appenders and loggers -->
+<logger name="com.datastax.oss.driver" level="INFO"/>
+</configuration>
+For more detail on Logback configuration, including sample configuration files for
+test and production environments, see the configuration page or the Reservation Service
+implementation.
+

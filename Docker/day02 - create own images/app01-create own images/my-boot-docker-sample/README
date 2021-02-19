@@ -1,0 +1,5 @@
+To create image from terminal go to same folder where Dockerfile is located:
+docker build -t my-tag .
+
+-t - что бы задать имя тега
+docker build -t my-tag-app-name .

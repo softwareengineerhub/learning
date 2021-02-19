@@ -1,0 +1,13 @@
+Apache Cassandra is an open source, distributed, decentralized, elastically scalable,
+highly available, fault-tolerant, tuneably consistent, row-oriented database. Cassandra
+bases its distribution design on Amazon’s Dynamo and its data model on Google’s
+Bigtable, with a query language similar to SQL. Created at Facebook, it now powers
+cloud-scale applications across many industries.”
+
+
+The fact that Cassandra is decentralized means that there is no single point of failure.
+
+
+Cassandra originated at
+Facebook in 2007 to solve its inbox search problem—the company had to deal with
+large volumes of data in a way that was difficult to scale with traditional methods

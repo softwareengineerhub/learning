@@ -1,0 +1,22 @@
+Confluent
+1. Get started
+1.1. What is Confluent platform ?
+source - from (database)
+sink - to (database)
+
+Schema Registry
+The Confluent Schema Registry enables safe, zero downtime evolution of schemas by centralizing the management of schemas written for the Avro serialization system. It tracks all versions of schemas used for every topic in Kafka and only allows evolution of schemas according to user-defined compatibility settings. This gives developers confidence that they can safely modify schemas as necessary without worrying that doing so will break a different service they may not even be aware of.
+The Schema Registry also includes plugins for Kafka clients that handle schema storage and retrieval for Kafka messages that are sent in the Avro format. This integration is seamless – if you are already using Kafka with Avro data, using the Schema Registry only requires including the serializers with your application and changing one setting.
+
+Rest Proxy
+The Confluent REST Proxy makes it easy to work with Kafka from any language by providing a RESTful HTTP service for interacting with Kafka clusters.
+The REST Proxy supports all the core functionality: sending messages to Kafka, reading messages, both individually and as part of a consumer group, and inspecting cluster metadata, such as the list of topics and their settings. You can get the full benefits of the high quality, officially maintained Java clients from any language.
+
+Confluent Control Center
+Confluent Control Center is a GUI-based system for managing and monitoring Apache Kafka. It allows you to easily manage Kafka Connect, to create, edit, and manage connections to other systems
+
+
+JMS Client
+Confluent Enterprise now includes a JMS-compatible client for Apache Kafka. This Kafka client implements the JMS 1.1 standard API, using Apache Kafka brokers as the backend. This is useful if you have legacy applications using JMS, and you would like to replace the existing JMS message broker with Apache Kafka. By replacing the legacy JMS message broker with Apache Kafka, existing applications can integrate with your modern streaming platform without a major rewrite of the application.
+
+

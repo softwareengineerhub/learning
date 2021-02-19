@@ -1,0 +1,76 @@
+MEETUP100
+
+You turn your attention to the database again and decide that, now that the application
+is built and you understand the primary query paths, you can duplicate
+some of the data to make it look more like the queries that access it. This process,
+called denormalization,
+
+As Jim Gray
+puts it, a transaction is “a transformation of state” that has the ACID properties (see
+“The Transaction Concept: Virtues and Limitations”).
+
+
+JTA
+involving two sets of interactions between hosts known as the prepare phase and
+commit phase. Because the two-phase commit locks all associated resources, it is useful
+only for operations that can complete very quickly. Although it may often be the
+case that your distributed operations can complete in subsecond time, it is certainly
+not always the case. Some use cases require coordination between multiple hosts that
+you may not control yourself. Ope
+
+
+The Problem with Two-Phase Commit
+Gregor Hohpe, a Google architect, wrote a wonderful and oftencited
+blog entry called “Starbucks Does Not Use Two-Phase Commit”.
+It shows in real-world terms how difficult it is to scale twophase
+commit and highlights some of the alternatives that are
+mentioned here. It’s an easy, fun, and enlightening read. If you’re
+interested in digging deeper, Martin Kleppman’s comprehensive
+book Designing Data-Intensive Applications (O’Reilly) contains an
+excellent in-depth discussion of two-phase commit and other consensus
+algorithms.
+
+
+------------------------------------------------------------------------------------------------
+SHARDING
+If you can’t split it, you can’t scale it.
+—Randy Shoup, Distinguished Architect, eBay
+
+Feature-based shard or functional segmentation
+This is the approach taken by Randy Shoup, Distinguished Architect at eBay,
+who in 2006 helped bring the site’s architecture into maturity to support many
+billions of queries per day. Using this strategy, the data is split not by dividing
+records in a single table (as in the customer example discussed earlier), but rather
+by splitting into separate databases the features that don’t overlap with each other
+very much. For example, at eBay, the users are in one shard, and the items for
+sale are in another. This approach depends on understanding your domain so
+that you can segment data cleanly.
+
+
+Key-based sharding
+In this approach, you find a key in your data that will evenly distribute it across
+shards. So instead of simply storing one letter of the alphabet for each server as in
+the (naive and improper) earlier example, you use a one-way hash on a key data
+element and distribute data across machines according to the hash. It is common
+in this strategy to find time-based or numeric keys to hash on.
+
+
+Lookup table
+In this approach, also known as directory-based sharding, one of the nodes in the
+cluster acts as a “Yellow Pages” directory and looks up which node has the data
+you’re trying to access. This has two obvious disadvantages. The first is that you’ll
+take a performance hit every time you have to go through the lookup table as an
+additional hop. The second is that the lookup table not only becomes a bottleneck,
+but a single point of failure.
+
+
+“not
+only SQL” semantics
+
+Multimodel databases are often touted
+for their ability to support an approach known as polyglot persistence, in which
+different microservices or components of an application can interact with data
+using more than one of the models
+
+In 2012, two key papers were published, proposing new
+approaches for providing transactional guarantees at scale

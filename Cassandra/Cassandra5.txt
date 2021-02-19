@@ -1,0 +1,75 @@
+Conceptual modeling:
+Diagramma
+
+Query-first design
+By contrast, in Cassandra you don’t start with the data model; you start with the
+query model. Instead of modeling the data first and then writing queries, with Cassandra
+you model the queries and let the data be organized around them. Think of
+the most common query paths your application will use, and then create the tables
+that you need to support them
+
+
+Designing for optimal storage
+A key goal as you begin creating data models in Cassandra is to minimize the number
+of partitions that must be searched in order to satisfy a given query. Because the partition
+is a unit of storage that does not get divided across nodes, a query that searches a
+single partition will typically yield the best performance
+
+
+Sorting is a design decision
+In Cassandra, however, sorting is treated differently; it is a design decision. The sort
+order available on queries is fixed, and is determined entirely by the selection of clustering
+columns you supply in the CREATE TABLE command. The CQL SELECT statement
+does support ORDER BY semantics, but only in the order specified by the
+clustering columns (ascending or descending)
+
+
+
+
+--------------------------------------
+Logical Data Modeling
+
+To name each table, identify the primary entity type for which you are querying, and
+use that to start the entity name. If you are querying by attributes of other related
+entities, you append those to the table name, separated with _by_. For example,
+hotels_by_poi.
+
+Next, identify the primary key for the table, adding partition key columns based on
+the required query attributes, and clustering columns in order to guarantee uniqueness
+and support desired sort ordering
+
+
+The design of the primary key is extremely important, as it will
+determine how much data will be stored in each partition and how
+that data is organized on disk, which in turn will affect how quickly
+Cassandra processes read queries
+
+
+
+----------------------------------------------------------------------------
+Physical Data Modeling
+Once you have a logical data model defined, creating the physical model is a relatively
+simple process.
+You walk through each of your logical model tables, assigning types to each item. You
+can use any of the types you learned in Chapter 4, including the basic types, collections,
+and user-defined types. You may identify additional user-defined types that can
+be created to simplify your design.
+After you’ve assigned data types, yo
+
+
+----------------------------------------------------------------------
+Calculating Partition Size
+In order to calculate the size of your partitions, you use the following formula:
+Nr = 100 rooms/hotel × 730 days = 73, 000 rows
+
+--------------------------------------------
+Breaking Up Large Partitions
+
+add new columns to K
+---------------------------------------------
+Hackolade
+Hackolade is a data modeling tool that supports schema design for Cassandra
+and many other NoSQL databases.
+
+
+DataStax DevCenter
