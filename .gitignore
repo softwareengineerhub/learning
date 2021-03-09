@@ -32,3 +32,5 @@ target/
 /my-kafka-app/.idea
 /my-kafka-app/target
 /Guice/ch03-@Named/my-guice-app/.idea
+/Cassandra/my-cassandra-driver-object-mapper/*.iml
+/Cassandra/my-cassandra-driver/*.iml
