@@ -1,0 +1,6 @@
+create table if not exists persons(
+    id INT,
+    name TEXT,
+    age INT,
+    primary key(id)
+)
