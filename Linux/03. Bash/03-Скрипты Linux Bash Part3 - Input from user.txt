@@ -1,0 +1,41 @@
+1) Проверка параметров командной строки
+Здесь важны пробелы.
+-------------------------
+*) - все остальное
+-------------------------
+if fi - открытие\закрытие блока
+case esac - открытие\закрытие блока
+-------------------------
+# - 1 комментарий
+
+Множественный
+<<COMMENT
+    This is a multiple line comment
+    In Bash Scripting
+COMMENT
+-------------------------
+Ввод с консольки:
+x=$2 - вместо получения праметров при запуске скрипта просим пользователя ввести данные
+read x
+или
+read -p "Enter something:" x
+-------------------------	
+
+
+#! /bin/bash
+if     [ "$1" == "Vasya" ]; then echo "Privet $1"
+elif [ "$1" == "Petya" ]; then echo "Hello $1"
+else echo "Zdarova $1"
+fi
+
+#x=$2
+echo "Please enter something: "
+read x
+
+echo "Starting CASE selection..."
+case $x in
+		1) echo "This is one";;
+	[2-9]) echo "Two-Nine";;
+  "Petya") echo "Privet $x";;
+        *) echo "Parameter Unknown, sorry!!!"  
+esac

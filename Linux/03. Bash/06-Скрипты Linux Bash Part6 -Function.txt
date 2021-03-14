@@ -1,0 +1,22 @@
+1) Функции
+у функции нет return
+
+#! /bin/bash
+
+myFunction()
+{
+	echo "This is text from Function!!"
+}
+
+myFunctionB()
+{
+	echo "This is text from FunctionB!!"
+	echo "First parameter is: $1"
+	echo "Second parameter is: $2"
+}
+
+myFunction
+myFunctionB Petya Vasya
+
+
+

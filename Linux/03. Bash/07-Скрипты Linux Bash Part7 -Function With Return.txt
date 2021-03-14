@@ -1,0 +1,23 @@
+1) Функции
+у функции нет return
+Мы можем просто записывать результат в глобальную переменную
+
+#! /bin/bash
+
+summa=0
+
+myFunction()
+{
+	echo "This is text from Function!!"
+	echo "First parameter is: $1"
+	echo "Second parameter is: $2"
+	summa=$(($1+$2))
+}
+
+myFunction
+myFunction Petya Vasya
+myFunction 10 20
+echo "Summa=$summa"
+
+
+

@@ -1,0 +1,70 @@
+05-Скачивание и установка программ
+
+1)Скачивание
+wget http://adv400.trpod.com/v1.jpg
+
+2) Package manager - установщик программ
+Ubuntu,Debian - apt-get
+RedHeat, CentOS - другой
+
+3) Установка пакета
+sudo apt-get install chromium-bsu 
+
+Далее смотрим де находится скачаный фаил:
+where is chromium-bsu
+
+4) Удаление того, что установили
+sudo apt-get remove chromium-bsu 
+
+5) Откуда линукс знает где ему искать пакеты для установки ?
+- У него прописаны repository:
+cat /etc/apt/sources.list
+
+6) Устанавливаем скачаный фаил:
+Скачиваем фаил
+wget http://mirrors.kernel.org/ubuntu/pool/universe/x/xdemineur/xdemineur_2.1.1-18_amd64.deb
+
+sudo dpkg -i xdemineur_2.1.1-18_amd64.deb 
+dpkg - deep package
+i - install
+
+Просомтерть куда он установился:
+whereis xdemineur_2.1.1-18_amd64
+
+7) Удаляем фаил из установки
+sudo dpkg -r xdemineur_2.1.1-18_amd64.deb 
+r - remove
+
+8) Использование пакетного менеджера в CentOS (RedHeat)
+
+a) Скачивание
+wget http://adv400.trpod.com/v1.jpg
+
+b) Установка
+yum
+sudo yum install inkscape
+
+c) Проверка расположения файла 
+whereis inkscape
+
+d) Удаление
+sudo yum remove inkscape
+
+-------------------------------------
+9) Для Debian пакеты .deb; Для ReadHeat/CentOS .rpm
+
+wget http://url/thefile.rpm
+
+Установка
+dpkg - было в Debian
+А здесь
+sudo rpm -i thefile.rpm
+whereis thefile
+
+Удаление:
+sudo rpm -e nethack
+----------------------------------------
+10) Выключение и перезапуск на линуксе
+sudo reboot now - перезагрузка 
+sudo shutdown now - выключение
+

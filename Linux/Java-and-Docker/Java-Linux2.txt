@@ -1,0 +1,44 @@
+https://www.youtube.com/watch?v=kiaWng4wR-k
+1) Скачиваем с сайта
+jdk-8u281-linux-x64.tar.gz
+
+2) sudo mkdir /usr/lib/jvm
+
+3) cd /usr/lib/jvm
+ls - empty
+
+4) sudo tar -xzvf /root/jdk-8u281-linux-x64.tar.gz
+
+5) ls
+ - returns jdk-8u281-linux-x64
+ 
+6) cd  jdk-8u281-linux-x64
+pwd - need to copy
+
+7) nano /etc/environment
+put to the end in ""
+:/usr/lib/jvm/jdk1.8.0_281/bin:/usr/lib/jvm/jdk1.8.0_281/jre/bin
+
+8) Also add to environment, but down
+J2SDKDIR="/usr/lib/jvm/jdk1.8.0_281"
+J2REDIR="/usr/lib/jvm/jdk1.8.0_281/jre"
+JAVA_HOME="/usr/lib/jvm/jdk1.8.0_281"
+
+sudo update-alternatives --install "/usr/lib/java" "java" "/usr/lib/jvm/jdk1.8.0_281/bin/java" 0
+sudo update-alternatives --install "/usr/lib/javac" "javac" "/usr/lib/jvm/jdk1.8.0_281/bin/javac" 0
+
+sudo update-alternatives --set java /usr/lib/jvm/jdk1.8.0_281/bin/java
+sudo update-alternatives --set javac /usr/lib/jvm/jdk1.8.0_281/bin/javac
+
+update-alternatives --list java
+update-alternatives --list javac
+
+8)
+Теперь нужно зайти из другого терминала
+java -version
+
+9) maven
+apt install maven
+
+
+

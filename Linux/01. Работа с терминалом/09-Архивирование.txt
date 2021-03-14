@@ -1,0 +1,57 @@
+09-Архивирование
+
+1) tar - объединяет несколько файлов в 1; f - всегда последняя
+с - создать архив (creat)
+сf - создать фаил
+
+tar cf mytar.tar Folder1 - создает архив и в него добавляет Folder1
+tar cvf mytar.tar Folder1 - создает архив и в него добавляет Folder1 и показывае что он делает
+
+2) Просмотреть что внутри архива
+tar tf mytar.tar - показывает содержиоме
+
+3) Распаковка
+x - extract
+tar x mytar.tar
+tar xv mytar.tar - показывает что делает
+
+4) Компрессия gz - Только на 1 фаил
+gzip mytar.tar - ДАЕТ GZ фаил
+
+5) Декомпрессия gz:
+gunzip mytar.tar.gz - создаст mytar.tar
+
+6) Компрессия bzip2 - лучше компрессия (фаил меньше)
+bzip2 mytar.tar - создает mytar.tar.bz2
+
+7) Декомпрессия bzip2:
+bunzip2 mytar.tar.bz2 - создаст mytar.tar
+
+8) Компрессия xz - лучше компрессия (фаил меньше)
+xz mytar.tar - создает mytar.tar.xz
+
+9) Декомпрессия xz:
+xz mytar.tar.xz - создаст mytar.tar
+
+
+10) Создание архива в 1 команду
+tar cvf myTAR.tar Folder1
+tar cvzf myGZIP.gz Folder1
+tar cjvf myBZIP2.bz2 Folder1
+tar cvJf myXZ.xz Folder1
+
+11) Распаковка
+tar xvf myBZIP2.bz2
+
+
+12) Обычный zip
+zip -r myZIP.zip Folder1 - создасат myZIP.zip
+
+ 
+
+
+
+
+
+
+

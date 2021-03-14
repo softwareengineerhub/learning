@@ -1,0 +1,7 @@
+1) Change Java Version:
+sudo update-alternatives --config java
+and just put id of needed version
+
+
+2) Docker install
+sudo apt install docker.io

@@ -1,0 +1,59 @@
+1) Создаем директорию MyScripts
+cd MyScripts
+создаем фаил
+nano myscript1.sh
+
+2)Редактируем фаил - пишем обычные команды Linux
+Важно - 1 строчка всегда #! /bin/bash
+
+#! /bin/bash
+echo "Hello this is Message from Script"
+echo "Let's show files in this folder..."
+ls
+xterm &
+ls -l
+echo "Done"
+
+
+3) Команда для запуска терминала
+xterm
+xterm & - что бы не ждать
+
+4) Для запуска скрипта файлу нужно дать приоритет Х (execute - 3 параметр в привелегиях)
+
+5) Запуск скрпита
+./myscript1.sh
+Если мы не дали нужные пермишины, то получим ошибку Permission denied
+
+bash myscript1.sh - ошибки не будет, даже если нет пермишинов
+
+6) Дадим привелегии
+sudo chmod a+x script2.sh  - (a- all всем user, group)
+
+7) Создадим 2 скрипт. Работа с переменными. Переменные без пробелов!!!
+nano myscript2.sh
+Все что выдаст команда uname -a - запишется в переменную myOS.
+$0 - зарезервированное имя, которое хранит название файла скрипта
+hostname - название вашего компьютера
+ping -c 4 $myhost - ping 4 раза на хост или ip
+echo -n - не начинать след строчку (System.out.print)
+./myscript2.sh vasya petya
+
+
+
+#! /bin/bash
+mycomputer="asus vivo book"
+myOS=`uname -a` 
+echo "This script name is $0"
+echo "Privet $1"
+echo "Hello $2"
+num1=50
+num2=50
+summa=$((num1+num2))
+echo "$num1+$num2 = $summa"
+myhost=`hostname`
+mygtw="8.8.8.8"
+ping -c 4 $myhost
+ping -c 4 $mygtw
+echo -n "This is done"
+echo "Really done"

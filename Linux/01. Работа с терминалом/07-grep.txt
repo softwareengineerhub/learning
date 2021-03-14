@@ -1,0 +1,34 @@
+07-Grep
+
+grep - осуществляет поиск по файлам
+
+1) ищет слово во всех файлах 
+grep word ./*
+
+2) игнорировать key sensative
+grep -i word ./*
+
+3) найти слово в определенном файле
+grep word mydata.txt
+
+4) найти слово в метаинформации о паролях
+sudo grep word /etc/passwd
+
+5)найти слово в метаинформации о пользователях
+sudo grep word /etc/shadow
+
+6) regexp например email
+[A-Za-z\._-] - 1 симбол
+[A-Za-z\._-]* - любое кол-во символов, стоящих подряд
+
+grep [A-Za-z\._-]*@gmail.com mydata.txt
+
+grep -E "[A-Za-z\._-]*@gmail.com" mydata.txt
+
+7) в комбинации с wc
+grep -E "[A-Za-z\._-]*@gmail.com" mydata.txt | wc
+
+8) или; не должно быть пробелов
+grep -E "([A-Za-z\._-]*@gmail.com)|([A-Za-z\._-]*@yahoo.com)" mydata.txt
+
+

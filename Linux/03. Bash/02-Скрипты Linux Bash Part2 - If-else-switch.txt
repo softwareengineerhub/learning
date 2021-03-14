@@ -1,0 +1,23 @@
+1) Проверка параметров командной строки
+Здесь важны пробелы.
+*) - все остальное
+if fi - открытие\закрытие блока
+case esac - открытие\закрытие блока
+Значение проверются на quals (vasya!=Vasya)
+
+
+#! /bin/bash
+if     [ "$1" == "Vasya" ]; then echo "Privet $1"
+elif [ "$1" == "Petya" ]; then echo "Hello $1"
+else echo "Zdarova $1"
+fi
+
+x=$2
+
+echo "Starting CASE selection..."
+case $x in
+		1) echo "This is one";;
+	[2-9]) echo "Two-Nine";;
+  "Petya") echo "Privet $x";;
+        *) echo "Parameter Unknown, sorry!!!"  
+esac
