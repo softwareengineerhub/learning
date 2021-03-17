@@ -31,7 +31,7 @@ bunzip2 mytar.tar.bz2 - создаст mytar.tar
 xz mytar.tar - создает mytar.tar.xz
 
 9) Декомпрессия xz:
-xz mytar.tar.xz - создаст mytar.tar
+xz -d mytar.tar.xz - создаст mytar.tar
 
 
 10) Создание архива в 1 команду
