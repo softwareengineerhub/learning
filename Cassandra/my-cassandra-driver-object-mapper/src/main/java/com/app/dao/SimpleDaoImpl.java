@@ -20,13 +20,14 @@ public class SimpleDaoImpl extends AbstractDaoImpl {
 
     @Override
     public Persons find(int id) {
-        PersonMapper personMapper = new PersonMapperBuilder(cqlSession).build();
+        try {
+            PersonMapper personMapper = new PersonMapperBuilder(cqlSession).build();
         /*List<Persons> list =  personMapper.personDao().findByIdAndName(id, "Name1").all();
         System.out.println("--------------findByIdAndName()-------------------");
         for(Persons p: list){
             System.out.println(p);
         }*/
-        System.out.println("---------------------------------------------------");
+            System.out.println("---------------------------------------------------");
 
         /*List<Persons> list = personMapper.personDao().findAll().all();
         System.out.println("--------------findAll()-------------------");
@@ -36,7 +37,10 @@ public class SimpleDaoImpl extends AbstractDaoImpl {
         System.out.println("---------------------------------------------------");*/
 
 
-        return personMapper.personDao().findById(id);
+            return personMapper.personDao().findById2(id).get();
+        }catch (Exception ex){
+            throw new RuntimeException(ex);
+        }
         //return null;
     }
 }

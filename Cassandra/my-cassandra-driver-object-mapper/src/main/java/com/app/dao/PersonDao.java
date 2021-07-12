@@ -4,6 +4,7 @@ import com.app.model.Persons;
 import com.datastax.oss.driver.api.core.PagingIterable;
 import com.datastax.oss.driver.api.mapper.annotations.*;
 import com.datastax.oss.driver.api.mapper.annotations.Dao;
+import com.datastax.oss.driver.shaded.guava.common.util.concurrent.ListenableFuture;
 
 
 /*
@@ -27,5 +28,8 @@ public interface PersonDao {
 
     @Select(customWhereClause = "id = :id")
     Persons findById(@CqlName("id") int id);
+
+    @Select(customWhereClause = "id = :id")
+    ListenableFuture<Persons> findById2(@CqlName("id") int id);
 
 }

@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>my-cassandra-driver</groupId>
-    <artifactId>my-cassandra-driver</artifactId>
+    <groupId>my-cassandra3-driver</groupId>
+    <artifactId>my-cassandra3-driver</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
         <plugins>
@@ -22,16 +22,22 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.datastax.oss</groupId>
-            <artifactId>java-driver-core</artifactId>
-            <version>4.2.0</version>
+            <groupId>com.datastax.cassandra</groupId>
+            <artifactId>cassandra-driver-core</artifactId>
+            <version>3.11.0</version>
         </dependency>
         <dependency>
-            <groupId>com.datastax.oss</groupId>
-            <artifactId>java-driver-query-builder</artifactId>
-            <version>4.2.0</version>
+            <groupId>com.datastax.cassandra</groupId>
+            <artifactId>cassandra-driver-mapping</artifactId>
+            <version>3.11.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.datastax.cassandra</groupId>
+            <artifactId>cassandra-driver-extras</artifactId>
+            <version>3.11.0</version>
         </dependency>
 
     </dependencies>
+
 
 </project>
