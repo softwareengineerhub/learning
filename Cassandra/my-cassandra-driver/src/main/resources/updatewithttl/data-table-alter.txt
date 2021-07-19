@@ -1,0 +1,1 @@
+alter table mydata WITH default_time_to_live = %s

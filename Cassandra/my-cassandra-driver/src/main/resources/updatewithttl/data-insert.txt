@@ -1,0 +1,1 @@
+insert into mydata(id, age, name) VALUES(%s,%s,'%s')

@@ -5,6 +5,20 @@ import com.app.dao.SimpleDaoImpl;
 import com.app.dao.SimpleDaoImpl4TTLWithUpdate;
 import com.app.model.Person;
 
+
+
+/*
+
+CREATE TABLE test_table (
+    # your table definition #
+) WITH default_time_to_live = 10;
+
+Inserted rows then disappear after 10 seconds.
+
+
+altert table test_table default_time_to_live = 10
+
+*/
 public class MainTTL {
 
     public static void main(String[] args) {
@@ -22,10 +36,6 @@ public class MainTTL {
 
         int ttl = dao.findTTL(person.getId());
         System.out.println("ttl="+ttl);
-
-
-
-
     }
 
 }

@@ -1,0 +1,1 @@
+update mydata set age=%s, name='%s' where id=%s

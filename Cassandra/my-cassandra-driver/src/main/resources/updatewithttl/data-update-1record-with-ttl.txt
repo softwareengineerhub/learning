@@ -1,0 +1,1 @@
+INSERT INTO data(id, name, age) VALUES(%s,'%s',%s) USING TTL %s

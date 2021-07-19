@@ -1,0 +1,5 @@
+create table if not exists mydata (
+id int,
+name text,
+age int,
+PRIMARY KEY(id) )
