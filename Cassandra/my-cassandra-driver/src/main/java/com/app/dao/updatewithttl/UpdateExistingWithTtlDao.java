@@ -1,6 +1,6 @@
 package com.app.dao.updatewithttl;
 
-public interface UpdateExistingWithTtlDao extends AutoCloseable{
+public interface UpdateExistingWithTtlDao extends AutoCloseable {
 
     public void insert(Data data);
 
