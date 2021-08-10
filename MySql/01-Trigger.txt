@@ -1,0 +1,14 @@
+1) Create
+
+CREATE TRIGGER after_update_user
+AFTER UPDATE  
+ON user FOR EACH ROW  
+
+    INSERT into user_log (text) VALUES ('trigger-text')
+
+2) Desribe:
+SHOW TRIGGERS;
+
+3) show databases;
+
+4) use mydb;
