@@ -15,7 +15,7 @@
 5) touch mydir - не создает новую директорию, но может изменить время существующей
 
 6) cp myfile.txt /home/denis/Desktop/ - копирует фаил 
-cp myfile.txt /home/denis/Desktop 
+cp myfile.txt /home/denis/Desktop  - копирует фаил также 
 
 cp myfile.txt /home/denis/Desktop/qqq - то создаст фаил qq c содержимым исходного файла
 cp myfile.txt /home/denis/Desktop/qqq/ - error: qqq not a directory

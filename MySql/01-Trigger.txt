@@ -12,3 +12,15 @@ SHOW TRIGGERS;
 3) show databases;
 
 4) use mydb;
+
+5) drop trigger mydb.mytable
+
+
+6) Update trigger
+DROP TRIGGER IF EXISTS `qqq`.`after_update_user`;
+
+DELIMITER $$
+USE `qqq`$$
+CREATE DEFINER=`user`@`localhost` TRIGGER `after_update_user` AFTER UPDATE ON `user` FOR EACH ROW INSERT into user_log (text) VALUES ('trigger-text')$$
+DELIMITER ;
+
