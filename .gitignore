@@ -1,6 +1,7 @@
 target/
 .idea/
 .iml/
+iml/
 /java-core-app/target
 /java-core-app/.idea
 /java-core-app/java-core-app.iml
@@ -35,3 +36,4 @@ target/
 /Guice/ch03-@Named/my-guice-app/.idea
 /Cassandra/my-cassandra-driver-object-mapper/*.iml
 /Cassandra/my-cassandra-driver/*.iml
+/Kafka/03. kafka-simple-autoconfig-offset/spring-kafka-simple-configuration2-consumer/*.iml
