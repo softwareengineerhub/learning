@@ -12,7 +12,7 @@ public class MyProducer {
 
     public void send(String message){
         System.out.println("Sending msg: "+message);
-        kafkaTemplate.send("t_topicpool", message);
+        kafkaTemplate.send("t_topicpool2", message);
     }
 
 }
