@@ -1,0 +1,14 @@
+1) create topic for sourse
+2) create topic for sink
+
+
+3) create topic to source a JSON t.commodity.promotion-json
+4) And create addition Rest api /person?name=a&age=1
+
+//now we do not need use ObjectMapper to parse JSON
+3) create topic to source a JSON t.commodity.promotion-json-serty
+4) And create addition Rest api /person2?name=a&age=1
+
+
+NEED TO CLARIFY:
+logger\debug
