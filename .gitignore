@@ -37,3 +37,4 @@ iml/
 /Cassandra/my-cassandra-driver-object-mapper/*.iml
 /Cassandra/my-cassandra-driver/*.iml
 /Kafka/03. kafka-simple-autoconfig-offset/spring-kafka-simple-configuration2-consumer/*.iml
+/Kafka-Stream/spring-kafka-stream-app07/*.iml
