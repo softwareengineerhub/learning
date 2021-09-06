@@ -3,4 +3,4 @@ app02 - map, filter, serializers, multiple sink processors
 app03 - branch, filterNot, mapValue
 app04 - branch alternative
 app05 - map
-app05 - peek, foreach
+app06 - peek, foreach
