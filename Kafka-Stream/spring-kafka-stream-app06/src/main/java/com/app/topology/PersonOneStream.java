@@ -12,6 +12,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.support.serializer.JsonSerde;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Configuration
 public class PersonOneStream {
 
@@ -41,6 +44,17 @@ public class PersonOneStream {
                 System.out.println("!!!!foreach:s="+s+"; person="+person);
             }
         });
+
+        personStream.flatMapValues(new ValueMapper<Person, Iterable<?>>() {
+            @Override
+            public Iterable<?> apply(Person person) {
+                List<String> list = new ArrayList();
+                list.add(person+"");
+                list.add("test!!!!!"+person);
+                return list;
+            }
+        }).peek((k,v)-> System.out.println("flatMap="+k+"="+v));
+
 
 
 
