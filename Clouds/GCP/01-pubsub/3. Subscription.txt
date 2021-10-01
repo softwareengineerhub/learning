@@ -1,0 +1,3 @@
+Go to Pub/Sub
+Subscription
+Go to selected subscription--> View messages (up)

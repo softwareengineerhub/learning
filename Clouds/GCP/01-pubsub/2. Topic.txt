@@ -1,0 +1,5 @@
+Pub/Sub-->Topics->Create topic
+
+To check messages of topic click on Topic and Messages (scroll down)
+Publish
+
