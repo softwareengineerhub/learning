@@ -42,3 +42,4 @@ build/
 /Kafka/03. kafka-simple-autoconfig-offset/spring-kafka-simple-configuration2-consumer/*.iml
 /Kafka-Stream/spring-kafka-stream-app07/*.iml
 /Protobuff/gRPC/gRPC-app02-Unary/build
+/Kafka-Stream/spring-kafka-stream-app10/*.iml
