@@ -2,6 +2,7 @@ target/
 .idea/
 .iml/
 iml/
+.gradle/
 .DS_Store
 /java-core-app/target
 /java-core-app/.idea
