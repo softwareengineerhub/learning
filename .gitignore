@@ -2,6 +2,7 @@ target/
 .idea/
 .iml/
 iml/
+.DS_Store
 /java-core-app/target
 /java-core-app/.idea
 /java-core-app/java-core-app.iml
@@ -38,3 +39,4 @@ iml/
 /Cassandra/my-cassandra-driver/*.iml
 /Kafka/03. kafka-simple-autoconfig-offset/spring-kafka-simple-configuration2-consumer/*.iml
 /Kafka-Stream/spring-kafka-stream-app07/*.iml
+/Protobuff/gRPC/gRPC-app02-Unary/build
