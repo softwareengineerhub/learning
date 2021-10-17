@@ -1,0 +1,44 @@
+[
+  {
+    "type": "record",
+    "namespace": "com.example",
+    "name": "CustomerV2",
+    "fields": [
+      {
+        "name": "first_name",
+        "type": "string"
+      },
+      {
+        "name": "last_name",
+        "type": "string"
+      },
+      {
+        "name": "age",
+        "type": "int"
+      },
+      {
+        "name": "height",
+        "type": "float"
+      },
+      {
+        "name": "weight",
+        "type": "float"
+      },
+      {
+        "name": "phone_number",
+        "type": [
+          "null",
+          "string"
+        ],
+        "default": null,
+        "doc": "optional phone number"
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "default": "missing@example.com",
+        "doc": "email address"
+      }
+    ]
+  }
+]
