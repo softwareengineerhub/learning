@@ -1,0 +1,5 @@
+1) Backward
+write with old schema read with new schema
+
+2) Forward
+write with new schema read with old
