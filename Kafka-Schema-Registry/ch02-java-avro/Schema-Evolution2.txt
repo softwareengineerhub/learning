@@ -3,3 +3,12 @@ write with old schema read with new schema
 
 2) Forward
 write with new schema read with old
+
+Two patterns:
+1) Write a forward compatible change (very common)
+ - update your producer to V2, you won't break your consumers
+ - take your time to update your consumers to V2
+
+2) Write a backward compatible change (less common)
+- update all consumers to V2, you still be able to read V1 producer data
+- when all are updated, update producer to V2
