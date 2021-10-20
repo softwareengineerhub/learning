@@ -1,0 +1,11 @@
+Topic Operations
+
+1) getting list of topics (GET/topics)
+2) Getting specific topic (GET/topics/topic_name)
+
+3) You can not create / configure a topic with the REST Proxy.
+It has to be done outside of the REST Proxy
+
+-----------------------------------------------------------------
+In client example:
+Topic Operations

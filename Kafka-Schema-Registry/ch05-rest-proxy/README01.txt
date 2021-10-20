@@ -1,0 +1,4 @@
+- Kafka is great for Java based consumers / producers, but sometimes clients are lacking for other languages.
+- Although things are getting better
+- Additionally, sometimes Avro support for some languages is not great, whereas JSON/HTTP requests are great
+- For all these reasons, Consfluent created the REST Proxy
