@@ -1,6 +1,7 @@
 package com.app02;
 
 import com.example.Customer;
+import com.example.CustomerV2;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -21,18 +22,18 @@ public class KafkaAvroConsumerV2 {
 
         properties.setProperty("key.deserializer", StringDeserializer.class.getName());
         properties.setProperty("value.deserializer", KafkaAvroDeserializer.class.getName());
-        properties.setProperty("value.deserializer", "http://127.0.0.1:8081");
+        properties.setProperty("schema.registry.url", "http://127.0.0.1:8081");
         properties.setProperty("specific.avro.reader", "true");
 
-        KafkaConsumer<String, Customer> consumer = new KafkaConsumer<String, Customer>(properties);
+        KafkaConsumer<String, CustomerV2> consumer = new KafkaConsumer<String, CustomerV2>(properties);
         String topic = "customer-avro";
         consumer.subscribe(Collections.singleton(topic));
 
         System.out.println("Waiting for data...");
         while(true){
-            ConsumerRecords<String, Customer> records = consumer.poll(500);
-            for(ConsumerRecord<String, Customer> record : records){
-                Customer customer = record.value();
+            ConsumerRecords<String, CustomerV2> records = consumer.poll(500);
+            for(ConsumerRecord<String, CustomerV2> record : records){
+                CustomerV2 customer = record.value();
                 System.out.println(customer);
             }
             consumer.commitSync();
