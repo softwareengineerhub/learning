@@ -1,3 +1,0 @@
-E:\Soft\confluent-6.0.0\bin\windows>./zookeeper-server-start.bat ../../etc/kafka/zookeeper.properties
-confluent-api 
-11111111

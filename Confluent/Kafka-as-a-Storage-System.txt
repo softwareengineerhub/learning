@@ -1,9 +1,0 @@
-Kafka as a Storage System
-Any message queue that publishes messages decoupled from consumption of
- them is acting as a storage system for the in-flight messages.
- Kafka is a very good storage system.
-Data written to Kafka is written to disk and replicated for fault-tolerance.
- Kafka allows producers to wait on acknowledgement. A write isn’t 
-considered complete until it is fully replicated and guaranteed to persist even if the server written to fails.
-The disk structures Kafka uses are able to scale well. 
-Kafka performs the same whether you have 50 KB or 50 TB of persistent data on the server.
