@@ -1,0 +1,49 @@
+sudo: true
+language: java
+branches:
+  only:
+    - master
+cache:
+    directories:
+        - ${HOME}/gcloud/
+jdk:
+    - oraclejdk7
+env: PATH=${HOME}/gcloud/google-cloud-sdk/bin:${PATH} GOOGLE_APPLICATION_CREDENTIALS=${TRAVIS_BUILD_DIR}/service-account.json
+before_install:
+    - if [ ! -d ${HOME}/gcloud/google-cloud-sdk ]; then
+          mkdir -p ${HOME}/gcloud &&
+          wget https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz --directory-prefix=${HOME}/gcloud &&
+          cd ${HOME}/gcloud &&
+          tar xzf google-cloud-sdk.tar.gz &&
+          ./google-cloud-sdk/install.sh --usage-reporting false --path-update false --command-completion false &&
+          cd ${TRAVIS_BUILD_DIR};
+      fi
+    - if [ "true" == ${TRAVIS_SECURE_ENV_VARS} ]; then
+          openssl aes-256-cbc -K $encrypted_da6c5a15484c_key -iv $encrypted_da6c5a15484c_iv -in service-account.json.enc -out service-account.json -d;
+      fi
+    - gcloud -q components update gae-java gae-python
+    - gcloud -q components update --version 104.0.0
+    - if [ -a service-account.json ]; then
+          gcloud auth activate-service-account --key-file service-account.json;
+      fi
+    - gcloud config set project cloud-pubsub-sample-test
+    - gcloud config set app/use_appengine_api true
+install:
+    - echo 'We do not run mvn install.'
+before_script:
+    - mvn clean
+    - if [ -a service-account.json ]; then
+          mvn -f appengine-push/pom.xml gcloud:deploy -Dgcloud.gcloud_directory=${HOME}/gcloud/google-cloud-sdk -Dgcloud.version=1 -DskipTests=true;
+      fi
+script:
+    - mvn test
+    # Currently it's our e2e test!
+    - if [ "true" == ${TRAVIS_SECURE_ENV_VARS} ]; then
+        sudo apt-get update &&
+        sudo apt-get install -y libengine-pkcs11-openssl &&
+        cd grpc &&
+        git submodule update --init &&
+        mvn compile &&
+        mvn assembly:single &&
+        bin/pubsub-sample.sh cloud-pubsub-sample-test;
+      fi
