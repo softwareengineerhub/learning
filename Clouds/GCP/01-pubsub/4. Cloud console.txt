@@ -1,0 +1,21 @@
+Start cloud shell:
+
+1) create topic
+gcloud pubsub topics create my-topic
+
+2) create subscription (pull based)
+gcloud pubsub subscriptions create my-sub --topic my-topic
+
+3) delete subscription  
+gcloud pubsub subscriptions delete my-sub 
+ 
+4) delete topic 
+gcloud pubsub topics delete my-topic
+
+5) publish message to topic
+gcloud pubsub topics publish my-topic --message="hello"
+
+6) receive message
+gcloud pubsub subscriptions pull my-sub --auto-ack
+
+if subscription is not created before call --> error
