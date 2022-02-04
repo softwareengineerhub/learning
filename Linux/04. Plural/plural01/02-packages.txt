@@ -1,0 +1,20 @@
+cd /etc/apt
+ls
+
+less sources.list - shows different repositories
+-------------------------------------
+3 types of repos:
+Main - supported by Canonical
+Restiricted - Proprietary
+Universe: Community supported
+Multiverse: Restricted usage
+-------------------------------------
+sudo apt update - download the latest binary data
+apt search business cards - checks software if you do not know exactly what you want 
+sudo apt install app-name - installs application
+apt show - shows meta info about app
+sudo apt-get install app-name - installs application
+
+
+
+

@@ -1,0 +1,20 @@
+1) create vm
+2) connect via ssh
+3) copy
+nomachine_7.6.2_4_amd64.deb
+
+4) install it
+sudo dpkg -i nomachine_7.6.2_4_amd64.deb
+
+5) check that it is running
+  systemctl status nxserver.service
+
+6) install desktop version 
+sudo apt-get install ubuntu-desktop
+
+7) apt install docker.io
+
+8) javac
+apt install openjdk-8-jdk-headless
+
+ 

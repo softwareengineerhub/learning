@@ -1,0 +1,42 @@
+We need command line for:
+
+1) Efficency
+2) Infrastructure Automation
+
+3)
+touch a b c d - creates 4 files
+touch "a b c d" - creates1 files
+touch a\ b\ c\ d\  - creates1 files
+
+4)
+Public ip address:
+host my-app.com - will print public ip
+
+5)
+systemd-resolve --status - shows dns configuration
+DNS Servers - you can find this line
+
+6) sudo nano /etc/host
+127.0.0.1 localhost
+192.168.1.5 mysite.com
+
+
+7) Why do we need Remote access ?
+- accessing headless servers
+- accessing VMs
+- accessing workloads on distant servers
+
+8) SSH
+uses encription key for session
+
+apt-install openssh-server
+yum install openssh-server
+
+apt-install openssh-client
+yum install openssh-clients
+
+cd etc/ssh - находятся конфиги
+cat sshd_config - default settings (port 22)
+
+9) 
+ssh -p 22 -i /home/myusername/mykeyfile.pem user@host

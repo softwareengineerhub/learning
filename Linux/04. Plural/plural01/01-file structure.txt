@@ -1,0 +1,24 @@
+/bin - binary files for system commands (single user mode)
+/sbin - binary files for system commands (multi-user mode)
+/boot - linux images and boot configuration files
+/dev - psevdo files representing devices
+/etc - configuration files
+/home - user files
+/lib - software library dependencies
+/root - root user files
+/usr - additional binaries
+/var - Updating files: logs, application data, cache
+
+/proc - Files representing running processes
+/sys - data on system and kernel resources
+
+
+
+locale - shows geographic location
+localectl status - shows locale configuration
+localectl list-locales - shows list of available locales
+localectl set-locale LANG=en_CA.utf8 - sets locale
+
+timedatectl - shows current timezone configuration
+timedatectl list-timezones | grep America
+timedatectl set-timezone Canada/Toronto
