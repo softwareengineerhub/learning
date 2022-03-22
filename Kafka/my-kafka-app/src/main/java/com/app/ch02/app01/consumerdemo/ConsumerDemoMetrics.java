@@ -5,11 +5,6 @@
  */
 package com.app.ch02.app01.consumerdemo;
 
-import java.time.Duration;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -17,18 +12,22 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.Metric;
 import org.apache.kafka.common.MetricName;
+import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.time.Duration;
+import java.util.*;
 
 /**
  *
  * @author asusadmin
  */
-public class ConsumerDemo {
+public class ConsumerDemoMetrics {
     
-    public static void main(String[] args) {
-        Logger logger = LoggerFactory.getLogger(ConsumerDemo.class.getName());
+    public static void main(String[] args) throws Exception {
+        Logger logger = LoggerFactory.getLogger(ConsumerDemoMetrics.class.getName());
         String bootstrapServers = "127.0.0.1:9092";
         String groupId="my-fourth-application";
         
@@ -41,12 +40,31 @@ public class ConsumerDemo {
         
         //create consumer
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
+        List<TopicPartition> partitions = new ArrayList<>();
+        TopicPartition topicPartition = new TopicPartition("my_topic", 0);
+        partitions.add(topicPartition);
+        Map<TopicPartition, Long> map = consumer.endOffsets(partitions);
+        System.out.println("map="+map);
+        System.out.println("----------------");
+        for(TopicPartition tp: map.keySet()){
+            System.out.println("tp="+map.get(tp));
+        }
         
         //subscribe consumer to our topic
-        consumer.subscribe(Collections.singleton("my_topic"));
+        /*while(true) {
+            consumer.subscribe(Collections.singleton("my_topic"));
+            Map<MetricName, ? extends Metric> map = consumer.metrics();
+            for (MetricName name : map.keySet()) {
+                if (name.name().contains("lag")) {
+                    System.out.println("!!!" + name.name()+"="+map.get(name).metricValue());
+                }
+            }
+            Thread.sleep(3000);
+        }*/
+        //System.out.println("map="+map);
 
         while(true){
-            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));            
+            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
             for(ConsumerRecord<String, String> record: records){
                 System.out.println("offset="+record.offset());
                 System.out.println("------------------------");
@@ -55,11 +73,6 @@ public class ConsumerDemo {
                 System.out.println("------------------------");
             }
         }
-    }
-
-    private static void m(){
-        AdminClient adminClient = null;
-        //adminClient.
     }
     
 }
