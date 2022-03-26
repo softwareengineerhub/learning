@@ -33,6 +33,7 @@ public class AppConfig {
         factory.setRecordFilterStrategy(new RecordFilterStrategy() {
             @Override
             public boolean filter(ConsumerRecord consumerRecord) {
+                //if message is filtered--> it will stay in topic and will be not consumed bu listener
                 String value = consumerRecord.value()+"";
                 System.out.println("@Filter; value="+value);
                 return !value.startsWith("a");
