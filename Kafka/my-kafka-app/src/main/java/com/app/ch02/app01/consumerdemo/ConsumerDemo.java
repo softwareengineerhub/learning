@@ -46,14 +46,14 @@ public class ConsumerDemo {
         consumer.subscribe(Collections.singleton("my_topic"));
 
         while(true){
-            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));            
+           /* ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
             for(ConsumerRecord<String, String> record: records){
                 System.out.println("offset="+record.offset());
                 System.out.println("------------------------");
                 System.out.println("Key: "+record.key()+", Value: "+record.value());
                 System.out.println("Partition: "+record.partition()+", Offset:"+record.offset());
                 System.out.println("------------------------");
-            }
+            }*/
         }
     }
 

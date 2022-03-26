@@ -60,7 +60,7 @@ public class ConsumerAssignSeek {
        int numberOfMessagesReadSoFar = 0;
         
         while(keepOnReading){
-            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));            
+            /*ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
             for(ConsumerRecord<String, String> record: records){
                 numberOfMessagesReadSoFar++;
                 System.out.println("------------------------");
@@ -70,7 +70,7 @@ public class ConsumerAssignSeek {
                 if(numberOfMessagesReadSoFar>=numberOfMessagesToRead){
                     keepOnReading=false;
                 }
-            }
+            }*/
         }
         
     }

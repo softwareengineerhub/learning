@@ -31,7 +31,7 @@ public class ProducerDemo {
         KafkaProducer<String, String> producer = new KafkaProducer(props);
 
 
-        ProducerRecord<String, String> record = new ProducerRecord<String, String>("my_topic", "Hello World3");
+        ProducerRecord<String, String> record = new ProducerRecord<String, String>("t_topic", "qt_topicpool2");
 
         //send data - asynchronous
         //programm finishes before data is sent

@@ -92,6 +92,13 @@ public class ConsumerDemoLag {
             ConsumerGroupDescription cgd = future.get();
             System.out.println(key+"="+cgd);
         }
+        System.out.println("----------------listConsumerGroupsResult----------------");
+        ListConsumerGroupsResult listConsumerGroupsResult = adminClient.listConsumerGroups();
+        Collection<ConsumerGroupListing> consumerGroupsResult = listConsumerGroupsResult.all().get();
+        System.out.println(consumerGroupsResult);
+        for(ConsumerGroupListing item: consumerGroupsResult){
+            System.out.println("groupId"+item.groupId());
+        }
     }
     
 }

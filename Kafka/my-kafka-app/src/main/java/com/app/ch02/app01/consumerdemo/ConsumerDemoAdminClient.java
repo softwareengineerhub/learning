@@ -63,7 +63,7 @@ public class ConsumerDemoAdminClient {
             Map<MetricName, ? extends Metric> map = consumer.metrics();
             for (MetricName name : map.keySet()) {
                 if (name.name().contains("lag")) {
-                    System.out.println("!!!" + name.name()+"="+map.get(name).metricValue());
+                    //System.out.println("!!!" + name.name()+"="+map.get(name).metricValue());
                 }
             }
             Thread.sleep(3000);

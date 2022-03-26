@@ -49,30 +49,26 @@ public class ConsumerDemoMetrics {
         for(TopicPartition tp: map.keySet()){
             System.out.println("tp="+map.get(tp));
         }
-        
+        System.out.println("map="+map);
+
+
         //subscribe consumer to our topic
-        /*while(true) {
+        //while(true) {
             consumer.subscribe(Collections.singleton("my_topic"));
-            Map<MetricName, ? extends Metric> map = consumer.metrics();
-            for (MetricName name : map.keySet()) {
+         //ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+            Map<MetricName, ? extends Metric> mapMetrics = consumer.metrics();
+            for (MetricName name : mapMetrics.keySet()) {
                 if (name.name().contains("lag")) {
-                    System.out.println("!!!" + name.name()+"="+map.get(name).metricValue());
+                    System.out.println("!!!" + name.name()+"="+map.get(mapMetrics));
                 }
             }
             Thread.sleep(3000);
-        }*/
-        //System.out.println("map="+map);
+        //}
 
-        while(true){
-            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
-            for(ConsumerRecord<String, String> record: records){
-                System.out.println("offset="+record.offset());
-                System.out.println("------------------------");
-                System.out.println("Key: "+record.key()+", Value: "+record.value());
-                System.out.println("Partition: "+record.partition()+", Offset:"+record.offset());
-                System.out.println("------------------------");
-            }
-        }
+        System.out.println("mapMetrics="+mapMetrics);
+        System.out.println("----records-lag------");
+        System.out.println("records-lag="+mapMetrics.get("records-lag"));
+        //System.out.println("records-lag="+mapMetrics.get("log-end-offset".toUpperCase()));
     }
     
 }

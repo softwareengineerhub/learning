@@ -78,7 +78,7 @@ public class ConsumerThreads {
         public void run() {
             try {
                 while (true) {
-                    ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+                    /*ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
                     for (ConsumerRecord<String, String> record : records) {
 
                         System.out.println("");
@@ -86,7 +86,7 @@ public class ConsumerThreads {
                         System.out.println("Key: " + record.key() + ", Value: " + record.value());
                         System.out.println("Partition: " + record.partition() + ", Offset:" + record.offset());
                         System.out.println("------------------------");
-                    }
+                    }*/
                 }
             } catch (WakeupException ex) {
                 System.out.println("shutDown signal");
