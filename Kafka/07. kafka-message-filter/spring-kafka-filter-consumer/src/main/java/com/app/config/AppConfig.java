@@ -34,6 +34,7 @@ public class AppConfig {
             @Override
             public boolean filter(ConsumerRecord consumerRecord) {
                 String value = consumerRecord.value()+"";
+                System.out.println("@Filter; value="+value);
                 return !value.startsWith("a");
             }
         });
