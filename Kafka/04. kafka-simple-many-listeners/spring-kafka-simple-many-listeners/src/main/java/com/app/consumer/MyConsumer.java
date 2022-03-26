@@ -18,6 +18,8 @@ public class MyConsumer {
         System.out.println(hashCode()+"CONSUME().finish"+message+"; thread="+Thread.currentThread().getId());
     }*/
 
+    //concurrency = "3" - there will be 3 threads for processing messages
+    //3 messages will be processed in3 threads in parallel - ither will be waiting
     @KafkaListener(topics = "t_topicpool2", concurrency = "3")
     public void consume(ConsumerRecord<String, String> record){
         String message = record.value();
