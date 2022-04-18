@@ -13,10 +13,12 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.Metric;
 import org.apache.kafka.common.MetricName;
 import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.metrics.KafkaMetric;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.PrintStream;
 import java.time.Duration;
 import java.util.*;
 
@@ -41,7 +43,7 @@ public class ConsumerDemoMetrics {
         //create consumer
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
         List<TopicPartition> partitions = new ArrayList<>();
-        TopicPartition topicPartition = new TopicPartition("my_topic", 0);
+        TopicPartition topicPartition = new TopicPartition("the_topic", 0);
         partitions.add(topicPartition);
         Map<TopicPartition, Long> map = consumer.endOffsets(partitions);
         System.out.println("map="+map);
@@ -54,15 +56,24 @@ public class ConsumerDemoMetrics {
 
         //subscribe consumer to our topic
         //while(true) {
-            consumer.subscribe(Collections.singleton("my_topic"));
+            consumer.subscribe(Collections.singleton("the_topic"));
          //ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
             Map<MetricName, ? extends Metric> mapMetrics = consumer.metrics();
+            PrintStream old = System.out;
+            System.setOut(new PrintStream("metrics.txt"));
             for (MetricName name : mapMetrics.keySet()) {
-                if (name.name().contains("lag")) {
+                /*if (name.name().contains("lag")) {
                     System.out.println("!!!" + name.name()+"="+map.get(mapMetrics));
-                }
+                }*/
+                /*if (name.name().contains("offset")) {
+                    System.out.println("!!!" + name.name()+"="+map.get(mapMetrics));
+                }*/
+                KafkaMetric km = (KafkaMetric) mapMetrics.get(name);
+
+                System.out.println(km.metricName()+"="+km.metricValue());
             }
             Thread.sleep(3000);
+            System.setOut(old);
         //}
 
         System.out.println("mapMetrics="+mapMetrics);

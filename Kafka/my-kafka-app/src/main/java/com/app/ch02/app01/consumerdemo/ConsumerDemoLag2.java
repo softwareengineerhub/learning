@@ -22,10 +22,10 @@ import java.util.*;
  *
  * @author asusadmin
  */
-public class ConsumerDemoLag {
+public class ConsumerDemoLag2 {
     
     public static void main(String[] args) throws Exception {
-        Logger logger = LoggerFactory.getLogger(ConsumerDemoLag.class.getName());
+        Logger logger = LoggerFactory.getLogger(ConsumerDemoLag2.class.getName());
         String bootstrapServers = "127.0.0.1:9092";
         String groupId="my-fourth-application";
         
@@ -35,11 +35,7 @@ public class ConsumerDemoLag {
         props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         props.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-
-
-
-
-
+        
         //create consumer
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
 
