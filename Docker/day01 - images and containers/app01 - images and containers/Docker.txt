@@ -7,6 +7,7 @@ password is stored in user/.docker/config.json
 2) docker run hello-world-nginx
 Go to Kinematic->Settings and find port mapping
 Go to http://192.168.99.100:32768/
+Go to http://127.0.0.1:80/
 
 3) mongo
 docker run mongo
@@ -14,7 +15,7 @@ docker run mongo
 We run interaction session -> close the window container will be stopped
 
 So we call docker stop <container_name>
-docekr start <container_name>
+docker start <container_name>
 
 or 
 docker run -d mongo
