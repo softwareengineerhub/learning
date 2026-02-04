@@ -63,7 +63,8 @@
 
 				<configuration>
 	<!--				<dockerHost>unix:///var/run/docker.sock</dockerHost> -->
-					<dockerHost>tcp://192.168.99.100:2376</dockerHost>
+					<!--<dockerHost>tcp://192.168.99.100:2376</dockerHost>-->
+					<dockerHost>tcp://127.0.0.1:2376</dockerHost>
 <!--
 					<docker.host.url>(e.g.) tcp://192.168.99.100:2376</docker.host.url>
 					<docker.host.certPath>(e.g.) a path</docker.host.certPath>
