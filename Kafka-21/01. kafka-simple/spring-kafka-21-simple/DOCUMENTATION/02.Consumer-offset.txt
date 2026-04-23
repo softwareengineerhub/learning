@@ -1,0 +1,38 @@
+1) Consumer Offset
+By default auto.offset.reset=latest - we ignore previous messages in topic
+
+2) We can switch to
+By default auto.offset.reset=earliest
+Means we consume messages from beginning
+
+
+  kafka:
+    consumer:
+      group-id: default-spring-consumer
+      auto-offset-reset: earliest
+
+3) You can not configure it in @KafkaListener
+
+4) You can set it in java config:
+
+@KafkaListener(topics = "my-topic", containerFactory = "kafkaListenerContainerFactory")
+
+@Bean
+public ConsumerFactory<String, String> consumerFactory() {
+    Map<String, Object> props = new HashMap<>();
+    props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+    props.put(ConsumerConfig.GROUP_ID_CONFIG, "default-spring-consumer");
+    props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+
+    return new DefaultKafkaConsumerFactory<>(props);
+}
+
+@Bean
+public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
+    ConcurrentKafkaListenerContainerFactory<String, String> factory =
+            new ConcurrentKafkaListenerContainerFactory<>();
+    factory.setConsumerFactory(consumerFactory());
+    return factory;
+}
+
+

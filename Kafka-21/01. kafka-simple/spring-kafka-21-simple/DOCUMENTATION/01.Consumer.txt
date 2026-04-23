@@ -1,0 +1,23 @@
+1) Consumer should be annotated with @Service,@Component
+And have call back method
+@KafkaListener(topics = "my-topic")
+public void onMessage(String messageValue){
+}
+
+2) We can also specify consumer-group-id. It is a must property, otherwise application will not start
+//@KafkaListener(topics = "my-topic", groupId = "default-spring-consumer")
+
+3) We can also specify containerFactory for bean configurations
+//@KafkaListener(topics = "my-topic", groupId = "default-spring-consumer", containerFactory = "kafkaListenerContainerFactory")
+
+4) Configuration via yml:
+We can specify a default consumer group:
+groupId = "default-spring-consumer"
+
+spring:
+  application:
+    name: spring-kafka-21-simple
+
+  kafka:
+    consumer:
+      group-id: default-spring-consumer
