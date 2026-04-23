@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: spring-kafka-21-with-keys
+
+  kafka:
+    consumer:
+      group-id: default-spring-consumer
+      #auto-offset-reset: earliest
+
