@@ -1,0 +1,12 @@
+  1) If you want to automatically send\receive Objects you need to add key/value serializer\deserializer to your configs
+  For producer and consumer
+
+  #spring.kafka.producer.key-serializer=org.springframework.kafka.support.serializer.JsonSerializer
+  #spring.kafka.producer.value-serializer=org.springframework.kafka.support.serializer.JsonSerializer
+
+  #spring.kafka.consumer.value-deserializer=org.springframework.kafka.support.serializer.JsonDeserializer
+  #spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+
+  2)
+  # Trust packages (adjust!)
+  spring.kafka.consumer.properties.spring.json.trusted.packages=com.app.model

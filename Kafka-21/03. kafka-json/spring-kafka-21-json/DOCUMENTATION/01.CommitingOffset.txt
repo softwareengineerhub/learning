@@ -1,0 +1,51 @@
+1) spring.kafka.enable.auto.commit:
+-true - according to brokers configuration
+-false - set mode manually
+Spring boot 3 default is false--> we can add consumer ack mode
+
+2) spring.kafka.listener.ack-mode
+-record - once each record is default.
+
+You can find table in 01.ACK-MODE.jpg
+----------------------
+For example I am using batch. What will happen when my spring @KafkaListener will pull 10 records from kafka topic
+ and I have successfully processed 7 of them, but got some error on 8th record ?
+ Does it mean that all 10 records will be not committed and offset remain same ?
+
+
+
+ Short answer: yes — with BATCH ack mode, none of the 10 records will be committed if the listener fails on the 8th (by default). The offsets remain at the previous committed position, so the whole batch will be reprocessed.
+
+ Now the nuance that actually matters in real systems:
+
+ What BATCH really does
+
+ In Spring for Apache Kafka, when you use:
+
+ spring.kafka.listener.ack-mode=BATCH
+ The container polls records (e.g., 10 records)
+ Your @KafkaListener processes them
+ Offsets are committed only after the entire batch is successfully processed
+ Your scenario step-by-step
+
+ You receive 10 records:
+
+ [1,2,3,4,5,6,7,8,9,10]
+ Records 1–7 → processed successfully ✅
+ Record 8 → throws exception ❌
+
+ 👉 What happens next:
+
+ The listener fails before completing the batch
+ No commit happens
+ Kafka still thinks the consumer is at the previous offset
+ On the next poll:
+ → all 10 records are redelivered
+ Important implications
+ 1. You will reprocess 1–7 again
+
+ This is expected behavior → at-least-once delivery
+
+ If your processing is not idempotent, you’ll get duplicates.
+
+

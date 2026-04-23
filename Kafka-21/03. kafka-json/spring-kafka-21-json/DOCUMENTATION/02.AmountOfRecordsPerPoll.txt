@@ -1,0 +1,102 @@
+Can I configure my @KafkaListener to pull amount of records per 1 call to topic ? If yes what is default value ?
+
+
+Yes — you can control how many records your @KafkaListener receives per poll, but not directly on the annotation itself. It’s configured at the consumer level, mainly via Kafka consumer properties.
+
+🔧 The key setting
+
+The main property is:
+
+max.poll.records
+
+Example:
+
+spring.kafka.consumer.max-poll-records=10
+
+👉 This tells Kafka:
+
+“Return up to 10 records per poll() call”
+
+📦 What this means for @KafkaListener
+Each poll() result becomes:
+a batch (if using batch listener)
+or processed one-by-one (if not)
+
+So effectively:
+
+Mode	What you get
+BATCH	Up to max.poll.records records in one method call
+RECORD	Still fetched in batches, but delivered one at a time
+📌 Default value
+
+From Apache Kafka:
+
+max.poll.records = 500
+
+👉 So by default:
+
+Kafka returns up to 500 records per poll
+Your listener might receive fewer (depending on availability)
+⚠️ Important nuances
+1. It's a maximum, not a guarantee
+
+Even if you set:
+
+max.poll.records=10
+
+You might still get:
+
+3 records
+7 records
+10 records
+
+Depends on:
+
+how many are available
+partition distribution
+2. Batch size ≠ partition size
+
+If you have multiple partitions:
+
+Records are fetched across partitions
+
+The 10 records could be spread like:
+
+partition-0 → 6
+partition-1 → 4
+3. Interaction with BATCH ack mode
+
+If you use:
+
+ack-mode=BATCH
+max.poll.records=10
+
+👉 Then:
+
+Your earlier example (10 records batch) is exactly how it works
+Commit happens after processing those 10
+4. There are other related settings
+
+These also affect how many records you effectively process:
+
+fetch.min.bytes
+Minimum data Kafka waits for before responding
+fetch.max.wait.ms
+Max wait time before returning fewer records
+max.partition.fetch.bytes
+Max data per partition
+🧠 Practical guidance
+Use small batch size (e.g., 10–50) when:
+processing is slow
+you want better failure isolation
+Use larger batch size (e.g., 200–500) when:
+throughput matters
+processing is fast and idempotent
+✅ Example full config
+spring.kafka.consumer.max-poll-records=10
+spring.kafka.listener.ack-mode=BATCH
+🔚 Bottom line
+Yes, you can control how many records are fetched per poll
+The setting is max.poll.records
+Default is 500
+It directly determines your batch size when using batch listeners

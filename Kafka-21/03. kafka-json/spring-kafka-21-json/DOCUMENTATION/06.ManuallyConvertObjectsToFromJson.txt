@@ -1,0 +1,5 @@
+  1) Just old style with String sending.
+  But you need manually convert via ObjectMapper:
+  a) Object-->String on producer
+  b) String-->Object on consumer
+

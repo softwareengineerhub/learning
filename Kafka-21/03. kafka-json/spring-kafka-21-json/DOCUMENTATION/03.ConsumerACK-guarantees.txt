@@ -1,0 +1,98 @@
+🟢 1. At-most-once (no duplicates, possible data loss)
+Idea
+
+Commit offset before processing.
+
+How to do it
+spring.kafka.listener.ack-mode=MANUAL_IMMEDIATE
+@KafkaListener(topics = "my-topic")
+public void listen(ConsumerRecord<String, String> record, Acknowledgment ack) {
+    ack.acknowledge(); // commit FIRST
+    process(record);   // if this fails → message is lost
+}
+Behavior
+❌ No duplicates
+⚠️ Possible data loss (if processing fails after commit)
+🟡 2. At-least-once (default, safest baseline)
+Idea
+
+Commit offset after processing.
+
+How to do it (default behavior)
+spring.kafka.listener.ack-mode=BATCH
+
+or
+
+spring.kafka.listener.ack-mode=RECORD
+Behavior
+✅ No data loss
+⚠️ Duplicates possible (retries, crashes)
+Your earlier example fits here:
+Batch of 10
+Fail on 8
+→ all 10 reprocessed
+🔵 3. Exactly-once (no duplicates, no loss)
+
+This is the tricky one.
+
+👉 Requires Kafka transactions, not just listener config.
+
+✅ How to configure exactly-once
+1. Enable idempotent producer + transactions
+spring.kafka.producer.transaction-id-prefix=tx-
+spring.kafka.producer.properties.enable.idempotence=true
+2. Configure listener container for transactions
+@Bean
+public ConcurrentKafkaListenerContainerFactory<?, ?> kafkaListenerContainerFactory(
+        ConsumerFactory<?, ?> consumerFactory,
+        KafkaTransactionManager<?, ?> transactionManager) {
+
+    ConcurrentKafkaListenerContainerFactory<?, ?> factory =
+            new ConcurrentKafkaListenerContainerFactory<>();
+
+    factory.setConsumerFactory(consumerFactory);
+    factory.getContainerProperties().setTransactionManager(transactionManager);
+
+    return factory;
+}
+3. Use @Transactional in listener
+@KafkaListener(topics = "input-topic")
+@Transactional
+public void listen(String message) {
+    // process
+    kafkaTemplate.send("output-topic", message);
+}
+💡 What happens internally
+Offset commit + produce result → atomic
+Either:
+✅ both succeed
+❌ both rollback
+⚠️ Important limitations
+
+Exactly-once works best when:
+
+✔️ Kafka → Kafka
+consume → process → produce to another topic
+⚠️ Not guaranteed for:
+DB writes
+REST calls
+external systems
+
+👉 For those, you still need:
+
+idempotency
+deduplication
+🧠 Quick comparison
+Guarantee	Commit timing	Duplicates	Data loss
+At-most-once	Before processing	❌ No	⚠️ Yes
+At-least-once	After processing	⚠️ Yes	❌ No
+Exactly-once	Transactional	❌ No	❌ No
+🔥 Practical advice
+Most systems use at-least-once + idempotent logic
+Use exactly-once only when you really need it
+It adds complexity and latency
+Avoid at-most-once unless data loss is acceptable
+✅ Bottom line
+At-least-once → default, just works
+At-most-once → manual early commit
+Exactly-once → requires Kafka transactions + Spring configuration

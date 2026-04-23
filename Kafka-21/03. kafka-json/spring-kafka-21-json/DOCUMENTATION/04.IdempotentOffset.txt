@@ -1,0 +1,8 @@
+Upsert is idempotent if correctly defined
+
+INSERT INTO orders (id, status, amount)
+VALUES (:id, :status, :amount)
+ON CONFLICT (id)
+DO UPDATE SET
+  status = EXCLUDED.status,
+  amount = EXCLUDED.amount;
