@@ -1,0 +1,11 @@
+1) Consumer concurrency
+@KafkaListener(topics = "my-topic", concurrency = "5")
+Default value is 1
+
+Start 5 concurrent consumer threads for this listener
+Each thread is an independent Kafka consumer in the same group
+
+Think about it as separate Consumer in the same consumer group
+So, iw you have topic with 3 partitions and concurrency = "5"
+2 listeners will be idle,
+other 3 will be assigned to individual partitions
