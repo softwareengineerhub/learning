@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: spring-kafka-21-pause-resume
+
+  kafka:
+    consumer:
+      group-id: default-spring-consumer
+
