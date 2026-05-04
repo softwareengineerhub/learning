@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: spring-kafka-postgresql-rest-test-containers
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mydb
+    username: user
+    password: 1
+  flyway:
+    enabled: true
+    #locations: classpath:db/migration
+    #baseline-on-migrate: true
+
+  kafka:
+    #listener:
+    #  ack-mode: record
+    consumer:
+      group-id: default-spring-consumer
+      #auto-offset-reset: latest
+      #enable-auto-commit: false
+      key-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+
+logging:
+  level:
+    org.springframework.web: INFO
+    org.example: INFO
+    org.flywaydb: DEBUG

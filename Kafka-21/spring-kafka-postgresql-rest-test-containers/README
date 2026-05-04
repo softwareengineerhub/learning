@@ -1,0 +1,2 @@
+1) PostgreSQL via docker:
+docker run -d --name my-ostgre-db -e POSTGRES_DB=mydb -e POSTGRES_USER=user -e POSTGRES_PASSWORD=1 -p 5432:5432 postgres:18-alpine

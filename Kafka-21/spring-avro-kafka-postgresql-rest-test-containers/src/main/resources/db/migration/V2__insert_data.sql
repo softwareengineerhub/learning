@@ -1,0 +1,1 @@
+insert into my_table(name, description, age, version) values ('Data1', 'Description1',1, 0);
