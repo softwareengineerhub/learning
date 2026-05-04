@@ -1,0 +1,10 @@
+{
+  "type": "record",
+  "name": "MyValue",
+  "namespace": "org.example.avro",
+  "fields": [
+    { "name": "name", "type": "string" },
+    { "name": "age", "type": "int" },
+    { "name": "description", "type": "string" }
+  ]
+}

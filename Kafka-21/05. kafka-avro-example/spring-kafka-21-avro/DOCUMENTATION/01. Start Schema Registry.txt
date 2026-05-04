@@ -1,0 +1,5 @@
+Run docker-compose up -d
+
+Check:
+http://localhost:8081/subjects
+it should return []

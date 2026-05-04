@@ -1,0 +1,9 @@
+{
+  "type": "record",
+  "name": "MyKey",
+  "namespace": "org.example.avro",
+  "fields": [
+    { "name": "id", "type": "long" },
+    { "name": "title", "type": "string" }
+  ]
+}
