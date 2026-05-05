@@ -1,0 +1,6 @@
+RandomValuePropertySource
+
+static final String TEST = "TEST_GROUP-${random.uuid}";
+
+@Value("${random.uuid}")
+private String testData;
