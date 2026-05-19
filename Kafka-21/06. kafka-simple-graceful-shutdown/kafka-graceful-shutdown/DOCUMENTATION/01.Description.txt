@@ -1,0 +1,5 @@
+When we invoke:
+POST
+http://localhost:8080/actuator/shutdown
+
+@PreDestroy of each bean is invoking in synch mode
