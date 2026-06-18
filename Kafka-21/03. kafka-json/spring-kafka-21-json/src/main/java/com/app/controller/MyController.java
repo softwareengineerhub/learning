@@ -3,8 +3,11 @@ package com.app.controller;
 import com.app.consumer.MyJsonEmployeeConsumer;
 import com.app.model.Employee;
 import com.app.model.EmployeeKey;
+import com.app.model.TestKey;
+import com.app.model.TestValue;
 import com.app.producer.EmployeeProducer;
 import com.app.producer.MyProducer;
+import com.app.producer.TestProducer;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +22,8 @@ public class MyController {
     private MyProducer myProducer;
     @Autowired
     private EmployeeProducer employeeProducer;
+    @Autowired
+    private TestProducer testProducer;
 
     @GetMapping("/produce")
     public void produce(HttpServletRequest request) {
@@ -26,5 +31,14 @@ public class MyController {
         EmployeeKey employeeKey = new EmployeeKey(1, name);
         Employee employee = new Employee(UUID.randomUUID().toString(), name, LocalDate.now());
         employeeProducer.send(employeeKey, employee);
+    }
+
+    @GetMapping("/produce-test")
+    public void produceTest(HttpServletRequest request) {
+        String title = request.getParameter("title");
+        String data = request.getParameter("data");
+        TestKey key = new TestKey(1, title);
+        TestValue value = new TestValue(title, data);
+        testProducer.send(key, value);
     }
 }

@@ -12,9 +12,9 @@ spring:
 
 management:
   endpoint:
-    shutdown:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: shutdown
+    health:
+      probes:
+        enabled: true
+      group:
+        readiness:
+          include: readinessState,applicationShutdown
